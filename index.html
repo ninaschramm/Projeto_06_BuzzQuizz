@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,40 +10,58 @@
     <link rel="shortcut icon" href="img/buzzquizz-topo.png" />
     <title>BuzzQuizz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">   
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <header>BuzzQuizz</header>
 
-<div class="container">
+    <div class="container">
 
-    <div class="content firstScreen">
-        <div class="primeiroQuiz">
-    <div class="quizList seusQuizzes hidden">
-        <h1>Seus Quizzes</h1>
+        <div class="content firstScreen">
+            <div class="firstQuiz">
+                <div class="quizList yourQuizzes hidden">
+                    <h1>Seus Quizzes</h1>
+                    <button class="createQuiz" onclick="createQuiz()">
+                        <ion-icon name="add-circle"></ion-icon>
+                    </button>
+                </div>
+                <div class="quizList noQuiz">
+                    Você não criou nenhum<br>quiz ainda ):
+                    <button class="createQuiz" onclick="createQuiz()">Criar Quiz</button>
+                </div>
+
+            </div>
+
+
+
+            <div class="quizList allQuizzes">
+                <h1>Todos os Quizzes</h1>
+            </div>
+
+        </div>
+
+
+        <div class="content secondScreen hidden"></div>
+
+
+        <div class="content thirdScreen hidden">
+            <div class="thirdScreenQuestions">
+                <h2>Comece pelo começo</h2>
+                <div>
+                    <input class="title" type="text" placeholder="Título do seu quiz">
+                    <input class="imgURL" type="text" placeholder="URL da imagem do seu quizz">
+                    <input class="questionQtt" type="text" placeholder="Quantidade de perguntas do quizz">
+                    <input type="levels" placeholder="Quantidade de níveis do quizz">
+                </div>
+                <button>Prosseguir pra criar perguntas</button>
+            </div>
+        </div>
     </div>
-    <div class="quizList noQuiz">
-        Você não criou nenhum<br>quiz ainda ):
-        <button class="criarQuiz" onclick="criarQuiz()">Criar Quiz</button>
-    </div>
 
-    </div>
-
-
-
-    <div class="quizList todosOsQuizzes">
-        <h1>Todos os Quizzes</h1>
-    </div>
-
-</div>
-
-
-<div class="content secondScreen"></div>
-
-    </div>
-    
 
     <!-- Links Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -50,4 +69,5 @@
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="scripts.js"></script>
 </body>
+
 </html>

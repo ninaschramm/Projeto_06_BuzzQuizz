@@ -1,5 +1,6 @@
 body {
-    font-family: roboto;
+    font-family: 'Roboto';
+    background-color: #fafafa;
 }
 
 header {
@@ -23,23 +24,23 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    margin-top: 140px;
 }
 
 .content h1 {
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
     color: black;
 }
 
-.primeiroQuiz {
+.firstQuiz {
     position: relative;
     width: 100%;
     max-width: 1050px;
     height: auto;
     min-height: 180px;
-    margin-top: 145px;
 }
 
 .quizList {
@@ -64,28 +65,75 @@ header {
     color: #b9b9b9;
 }
 
-.criarQuiz {
+.createQuiz {
     width: 151px;
     height: 40px;
     color: #EC362D;
     border: 1px dashed #EC362D;
     border-radius: 50px;
-    background-color: #fafafa;
     font-size: 22px;
     margin-top: 25px;
     cursor: pointer;
 }
 
-.seusQuizzes {
+.yourQuizzes {
     position: absolute;
 }
 
-.todosOsQuizzes {
+.allQuizzes {
     margin-top: 70px;
 }
 
+.thirdScreenQuestions {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
 
+.thirdScreenQuestions div {
+    background-color: #ffffff;
+    width: 600px;
+    height: 256px;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.068);
+    padding: 12px 0;
+    box-sizing: border-box;
+}
+
+.thirdScreen button {
+    color: #FFF5F4;
+    background-color: #EC362D;
+    border-radius: 14px;
+    border: none;
+
+    width: 368px;
+    height: 54px;
+    font-size: 20px;
+}
+
+.thirdScreen input {
+    width: 94%;
+    height: 46px;
+    border-radius: 5px;
+    border: 1px solid #D1D1D1;
+}
+
+.thirdScreen input::placeholder {
+    padding-left: 24px;
+    font-style: italic;
+    color: #BABABA;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.thirdScreen input:focus {
+    outline: none;
+}
 
 
 
