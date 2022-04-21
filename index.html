@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-br">
 
 <head>
@@ -49,16 +49,21 @@
 
 
         <div class="content thirdScreen hidden">
-            <div class="thirdScreenQuestions">
+            <div class="thirdScreenStart">
                 <h2>Comece pelo começo</h2>
                 <div>
                     <input class="title" type="text" placeholder="Título do seu quiz">
                     <input class="imgURL" type="text" placeholder="URL da imagem do seu quizz">
                     <input class="questionQtt" type="text" placeholder="Quantidade de perguntas do quizz">
-                    <input type="levels" placeholder="Quantidade de níveis do quizz">
+                    <input class="level" type="text" placeholder="Quantidade de níveis do quizz">
                 </div>
-                <button>Prosseguir pra criar perguntas</button>
+                <button onclick="createQuestions()">Prosseguir pra criar perguntas</button>
             </div>
+
+            <div class="thirdScreenQuestions hidden">
+                <ul></ul>
+            </div>
+
         </div>
     </div>
 
