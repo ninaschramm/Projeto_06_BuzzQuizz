@@ -1,5 +1,6 @@
 body {
-    font-family: roboto;
+    font-family: 'Roboto';
+    background-color: #fafafa;
 }
 
 header {
@@ -17,17 +18,21 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 3;
 }
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
+}
+
+.firstScreen {
+    margin-top: 140px;
 }
 
 .content h1 {
-    font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 20px;
@@ -35,13 +40,12 @@ header {
     margin: 10px 0;
 }
 
-.primeiroQuiz {
+.firstQuiz {
     position: relative;
     width: 100%;
     max-width: 1050px;
     height: auto;
     min-height: 180px;
-    margin-top: 145px;
 }
 
 .quizList {
@@ -66,25 +70,21 @@ header {
     color: #b9b9b9;
 }
 
-.criarQuiz {
+.createQuiz {
     width: 151px;
     height: 40px;
     color: #EC362D;
     border: 1px dashed #EC362D;
     border-radius: 50px;
-    background-color: #fafafa;
     font-size: 22px;
     margin-top: 25px;
     cursor: pointer;
 }
 
-.seusQuizzes {
+.yourQuizzes {
     position: absolute;
 }
 
-.todosOsQuizzes {
-    margin-top: 50px;
-}
 
 ul {
     display: flex;
@@ -121,9 +121,31 @@ ul {
     padding-top: 85px;
 }
 
+.allQuizzes {
+    margin-top: 70px;
+}
 
+.thirdScreen {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+.thirdScreen div {
+    width: 40%;
+}
 
+.thirdScreen button {
+    color: #FFF5F4;
+    background-color: #EC362D;
+    border-radius: 14px;
+    border: none;
 
+    width: 60%;
+    height: 54px;
+    font-size: 20px;
+
+    margin-bottom: 24px;
+}
 
 .adjustSpace {
     justify-content: flex-start;    
@@ -131,6 +153,164 @@ ul {
 .adjustMargin {
     margin-right: 20px;
 }
+
+.thirdScreen input {
+    width: 94%;
+    height: 46px;
+    border-radius: 5px;
+    border: 1px solid #D1D1D1;
+}
+
+.thirdScreen input::placeholder {
+    padding-left: 24px;
+    font-style: italic;
+    color: #BABABA;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.thirdScreen input:focus {
+    outline: none;
+}
+.thirdScreenStart{
+    height: 410px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.thirdScreenStart div {
+    background-color: #ffffff;
+    width: 80%;
+    height: 256px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.068);
+    padding: 12px 0;
+    box-sizing: border-box;
+}
+
+.thirdScreenQuestions li {
+    width: 100%;
+    height: 74px;
+    background-color: #FFFFFF;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 24px 0;
+    padding: 0 20px;
+    box-sizing: border-box;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.068);
+}
+.thirdScreenQuestions li div{
+    width: 100%;
+    text-align: start;
+}
+.thirdScreenQuestions li.questioning {
+    height: 826px;
+    flex-direction: column;
+    padding: 28px 0 28px 20px;
+    box-sizing: border-box;
+}
+.thirdScreenQuestions li.questioning ion-icon{
+    display: none;
+}
+.thirdScreenQuestions input{
+    margin: 8px 0;
+    
+}
+
+.headQuizz {
+    position: relative;
+    width: 100%;
+    height: 225px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headQuizz img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+}
+
+.titleQuiz {
+    position: absolute;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    color: #ffffff;
+    text-align: center;
+    z-index: 1;
+}
+
+.hideHead {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+}
+
+.questionsQuizz {
+    width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionTitle {
+    width: 680px;
+    height: 138px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    margin-top: 25px;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.answers {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    justify-content: space-between;
+}
+
+.answer {
+    width: 330px;
+    height: 200px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.answer img {
+    width: 330px;
+    height: 170px;
+    object-fit: cover;
+    margin: 5px 0;
+}
+
+
+
+
+
+
+
+
+
+
 
 .hidden {
     display: none;
