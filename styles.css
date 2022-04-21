@@ -17,6 +17,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 
 .content {
@@ -31,6 +32,7 @@ header {
     font-weight: 700;
     font-size: 20px;
     color: black;
+    margin: 10px 0;
 }
 
 .primeiroQuiz {
@@ -81,13 +83,54 @@ header {
 }
 
 .todosOsQuizzes {
-    margin-top: 70px;
+    margin-top: 50px;
+}
+
+ul {
+    display: flex;
+    flex-wrap: wrap;   
+    justify-content: space-between; 
+}
+
+.li_quizz {
+    width: 330px;
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 5px;
+    background-size: 100% 100%;
+    margin-bottom: 12px;
+    cursor: pointer;
+    
+}
+
+.li_quizz div {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;    
+    height: 150px;
+    width: 340px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+    display: flex;
+    align-items: center;    
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 85px;
 }
 
 
 
 
 
+.adjustSpace {
+    justify-content: flex-start;    
+}
+.adjustMargin {
+    margin-right: 20px;
+}
 
 .hidden {
     display: none;
