@@ -44,17 +44,21 @@ function createQuestions() {
 function openQuestion(elem) {
     const opened = document.querySelector(".questioning")
     if (opened !== null) {
+        opened.querySelector("div").classList.add("hidden")
         opened.classList.remove("questioning")
-        opened.innerHTML = `<span>Pergunta ${number + 1}</span>
+        opened.innerHTML += `<span>Pergunta ${number + 1}</span>
         <ion-icon onclick="openQuestion(this)" name="create-outline"></ion-icon>` //keeps the number of the last question, because it's before the next definition 
     }
 
-    number = Array.from(elem.closest("li").parentNode.children).indexOf(elem.closest("li")) //searching from the number of the question I'm clicking on ** creating an array so I can take the index
-
+    // number = Array.from(elem.closest("li").parentNode.children).indexOf(elem.closest("li")) //searching from the number of the question I'm clicking on ** creating an array so I can take the index
+     number = Array.from((elem.parentNode).parentNode.children).indexOf(elem.parentElement)
+     console.log(number)
+    
     elem.closest("li").classList.add("questioning");
-    elem.closest("li").innerHTML =
+    elem.closest("li").innerHTML +=
 
         `<div>
+        <div>
             <span>Pergunta ${number + 1}</span>
             <input class="question" placeholder="Texto da pergunta" type="text">
             <input class="question-color" placeholder="Cor de fundo da pergunta" type="text">
@@ -77,6 +81,7 @@ function openQuestion(elem) {
             <input placeholder="Resposta incorreta 3" type="text">
             <input placeholder="URL da imagem 3" type="text">
         </div>
+        </div>
         `
 }
 
@@ -94,9 +99,9 @@ function questionsValidation() {
             return false;
         }
     }
-    
-    for (let i = 0; i < answer.length; i++){
-        if (answer[i].value === ""){
+
+    for (let i = 0; i < answer.length; i++) {
+        if (answer[i].value === "") {
             return false
         }
     }
@@ -107,8 +112,8 @@ function questionsValidation() {
             return false;
         }
     }
-    for (let i = 0; i < imgURL.length; i++){
-        if (!(imgURL[i].value.startsWith('https'))){
+    for (let i = 0; i < imgURL.length; i++) {
+        if (!(imgURL[i].value.startsWith('https'))) {
             return false
         }
     }
@@ -118,10 +123,10 @@ function questionsValidation() {
 
 
 function createLevels() {
-    if (questionsValidation()){
+    if (questionsValidation()) {
         document.querySelector(".thirdScreenQuestions").classList.add("hidden")
     }
-    else{
+    else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
 
