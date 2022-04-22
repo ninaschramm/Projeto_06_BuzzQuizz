@@ -1,3 +1,39 @@
+function getQuizzes() {
+ const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
+
+ promise.then(listQuizzes)
+ promise.catch(treatError)
+}
+
+function treatError() {
+    alert("Ops! Algo de errado")
+}
+function funciona() {
+    console.log("Voltou resposta")
+}
+
+const allQuizzes = document.getElementById("listAllQuizzes")
+
+function listQuizzes(quizzes) {
+    funciona()
+
+ for (let i=0; i<quizzes.data.length; i++) {
+     allQuizzes.innerHTML +=  `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
+     <div>${quizzes.data[i].title}</div> 
+ </li>`
+ } 
+
+    
+ if (quizzes.data.length < 3) {adjustSize()}
+}
+
+getQuizzes()
+
+function adjustSize() {
+    {   document.querySelector(".li_quizz").classList.add("adjustMargin");
+        allQuizzes.classList.add("adjustSpace");}
+}
+
 let title;
 let level;
 let questionQtt;
@@ -130,4 +166,38 @@ function createLevels() {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
 
+}
+
+let id = 0;
+
+function initQuiz(idQuiz) {
+    id = idQuiz.dataset.quiz;
+    document.querySelector(".firstScreen").classList.add("hidden")
+    document.querySelector(".secondScreen").classList.remove("hidden")
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+    promise.then(takeQuiz)
+}
+
+function takeQuiz(resposta) {
+    console.log(id)
+    document.querySelector(".headQuizz").innerHTML = `<img src="${resposta.data.image}" /> <div class="titleQuiz">${resposta.data.title}</div> <div class="hideHead"></div>`
+    for (let i=0; i<resposta.data.questions.length; i++) { 
+        const answersArr = []
+     for (let j=0; j<resposta.data.questions[i].answers.length; j++) {
+         answersArr.push(resposta.data.questions[i].answers[j])
+         answersArr.sort(comparador)
+     }  
+    document.querySelector(".questionsQuizz").innerHTML += `<div class="question">
+    <div class="questionTitle" style="background-color:${resposta.data.questions[i].color}">${resposta.data.questions[i].title}</div>
+   <div class="answers n_${[i]}"></div>
+</div>`
+for (let y=0; y< answersArr.length; y++) {
+    document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)"><img src="${answersArr[y].image}" /> ${answersArr[y].text}`
+}
+    }
+
+}
+
+function comparador() { 
+	return Math.random() - 0.5; 
 }

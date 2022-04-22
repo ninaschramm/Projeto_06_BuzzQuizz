@@ -18,14 +18,17 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1;
+    z-index: 3;
 }
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 70px;
+}
 
+.firstScreen {
     margin-top: 140px;
 }
 
@@ -34,6 +37,7 @@ header {
     font-weight: 700;
     font-size: 20px;
     color: black;
+    margin: 10px 0;
 }
 
 .firstQuiz {
@@ -81,6 +85,42 @@ header {
     position: absolute;
 }
 
+
+ul {
+    display: flex;
+    flex-wrap: wrap;   
+    justify-content: space-between; 
+}
+
+.li_quizz {
+    width: 330px;
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    border-radius: 5px;
+    background-size: 100% 100%;
+    margin-bottom: 12px;
+    cursor: pointer;
+    
+}
+
+.li_quizz div {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;    
+    height: 150px;
+    width: 340px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
+    display: flex;
+    align-items: center;    
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 85px;
+}
+
 .allQuizzes {
     margin-top: 70px;
 }
@@ -105,6 +145,13 @@ header {
     font-size: 20px;
 
     margin-bottom: 24px;
+}
+
+.adjustSpace {
+    justify-content: flex-start;    
+}
+.adjustMargin {
+    margin-right: 20px;
 }
 
 .thirdScreen input {
@@ -178,6 +225,92 @@ header {
     margin: 8px 0;
     
 }
+
+.headQuizz {
+    position: relative;
+    width: 100%;
+    height: 225px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headQuizz img {
+    width: 100%;
+    height: 225px;
+    object-fit: cover;
+}
+
+.titleQuiz {
+    position: absolute;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 39px;
+    line-height: 46px;
+    color: #ffffff;
+    text-align: center;
+    z-index: 1;
+}
+
+.hideHead {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.6;
+}
+
+.questionsQuizz {
+    width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionTitle {
+    width: 680px;
+    height: 138px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    margin-top: 25px;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.answers {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    justify-content: space-between;
+}
+
+.answer {
+    width: 330px;
+    height: 200px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.answer img {
+    width: 330px;
+    height: 170px;
+    object-fit: cover;
+    margin: 5px 0;
+}
+
+
+
+
+
+
+
+
+
+
 
 .hidden {
     display: none;
