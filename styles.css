@@ -344,7 +344,7 @@ ul {
 }
 
 
-.answer {
+.secondScreen .answer {
     font-weight: 700;
     width: 330px;
     height: fit-content;
@@ -382,6 +382,11 @@ ul {
     opacity: 0.6;
 }
 
+.resultQuizz {
+    width: 760px;
+    height: auto;
+    margin-top: 400px;
+}
 
 
 

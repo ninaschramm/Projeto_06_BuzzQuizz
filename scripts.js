@@ -326,9 +326,28 @@ function chooseAnswer(selectedAnswer) {
 
     nextAnswerDiv = document.querySelector(".next")
     setTimeout(scrollNext, 2000); 
+
+    isTestOver()
 }
 
 function scrollNext() {
     nextAnswerDiv.scrollIntoView({behavior: "smooth"})
 }
 
+testOver = false;
+const resultDiv = document.querySelector(".resultQuizz");
+
+function isTestOver() {
+    if (document.querySelector(".next") == null) {
+        testOver = true;
+    }
+    if (testOver === true) {
+        resultDiv.classList.remove("hidden");
+        setTimeout(scrollResult, 2000)
+
+    }
+}
+
+function scrollResult() {
+    resultDiv.scrollIntoView({behavior: "smooth"})
+}
