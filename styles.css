@@ -25,7 +25,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 70px;
+    margin-top: 90px;
 }
 
 .firstScreen {
@@ -88,8 +88,8 @@ header {
 
 ul {
     display: flex;
-    flex-wrap: wrap;   
-    justify-content: space-between; 
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .li_quizz {
@@ -101,7 +101,7 @@ ul {
     background-size: 100% 100%;
     margin-bottom: 12px;
     cursor: pointer;
-    
+
 }
 
 .li_quizz div {
@@ -110,12 +110,12 @@ ul {
     font-size: 19px;
     display: flex;
     align-items: center;
-    color: #FFFFFF;    
+    color: #FFFFFF;
     height: 150px;
     width: 330px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
     display: flex;
-    align-items: center;    
+    align-items: center;
     border-radius: 5px;
     padding-left: 10px;
     padding-top: 85px;
@@ -130,6 +130,7 @@ ul {
     font-size: 24px;
     font-weight: 700;
 }
+
 .thirdScreen div {
     width: 40%;
 }
@@ -144,12 +145,13 @@ ul {
     height: 54px;
     font-size: 20px;
 
-    margin-bottom: 24px;
+    margin: 24px 0;
 }
 
 .adjustSpace {
-    justify-content: flex-start;    
+    justify-content: flex-start;
 }
+
 .adjustMargin {
     margin-right: 20px;
 }
@@ -172,13 +174,16 @@ ul {
 .thirdScreen input:focus {
     outline: none;
 }
-.thirdScreenStart{
+
+.thirdScreenStart {
     height: 410px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-top: 20px;
 }
+
 .thirdScreenStart div {
     background-color: #ffffff;
     width: 80%;
@@ -194,37 +199,75 @@ ul {
     box-sizing: border-box;
 }
 
-.thirdScreenQuestions li {
+.thirdScreen li {
     width: 100%;
     height: 74px;
     background-color: #FFFFFF;
-    
+
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    margin: 24px 0;
+    margin-top: 24px;
     padding: 0 20px;
     box-sizing: border-box;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.068);
+
 }
-.thirdScreenQuestions li div{
+
+.thirdScreen li div {
     width: 100%;
-    text-align: start;
 }
+
 .thirdScreenQuestions li.questioning {
     height: 826px;
     flex-direction: column;
     padding: 28px 0 28px 20px;
     box-sizing: border-box;
+    align-items: flex-start;
+    text-align: start;
 }
-.thirdScreenQuestions li.questioning ion-icon{
+
+.thirdScreenLevels li.level {
+    height: 826px;
+    flex-direction: column;
+    padding: 28px 0 28px 20px;
+    box-sizing: border-box;
+    align-items: flex-start;
+    text-align: start;
+}
+
+.thirdScreen li ion-icon {
     display: none;
 }
-.thirdScreenQuestions input{
-    margin: 8px 0;
-    
+
+.thirdScreenQuestions li.questioning>div {
+    height: 800px;
+    flex-direction: row;
+    justify-content: space-around;
 }
+
+.thirdScreenLevels li.level {
+    height: 316px;
+}
+
+.thirdScreen li.closed {
+    height: 74px;
+    flex-direction: row;
+    padding: 28px 20px;
+    box-sizing: border-box;
+}
+
+.thirdScreen li.closed ion-icon {
+    display: block;
+}
+
+.thirdScreenQuestions input {
+    margin: 8px 0;
+
+}
+
+
 
 .headQuizz {
     position: relative;
@@ -300,16 +343,21 @@ ul {
     justify-content: space-between;
 }
 
+
 .answer {
+    font-weight: 700;
     width: 330px;
-    height: 200px;
+    height: fit-content;
     font-weight: 700;
     font-size: 20px;
     margin: 10px 0;
     position: relative;
+    font-size: 20px;
+    word-wrap: break-word;
 }
 
-.answer img {
+
+.answers img {
     width: 330px;
     height: 170px;
     margin-bottom: 10px;

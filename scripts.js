@@ -1,8 +1,19 @@
-function getQuizzes() {
- const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
+let title;
+let level;
+let questionQtt;
+let imgURL;
+let number;
 
- promise.then(listQuizzes)
- promise.catch(treatError)
+let id = 0;
+
+function reload(){
+    window.location.reload()
+}
+function getQuizzes() {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
+
+    promise.then(listQuizzes)
+    promise.catch(treatError)
 }
 
 function treatError() {
@@ -17,28 +28,26 @@ const allQuizzes = document.getElementById("listAllQuizzes")
 function listQuizzes(quizzes) {
     funciona()
 
- for (let i=0; i<quizzes.data.length; i++) {
-     allQuizzes.innerHTML +=  `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
+    for (let i = 0; i < quizzes.data.length; i++) {
+        allQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
      <div>${quizzes.data[i].title}</div> 
  </li>`
- } 
+    }
 
-    
- if (quizzes.data.length < 3) {adjustSize()}
+
+    if (quizzes.data.length < 3) { adjustSize() }
 }
 
 getQuizzes()
 
 function adjustSize() {
-    {   document.querySelector(".li_quizz").classList.add("adjustMargin");
-        allQuizzes.classList.add("adjustSpace");}
+    {
+        document.querySelector(".li_quizz").classList.add("adjustMargin");
+        allQuizzes.classList.add("adjustSpace");
+    }
 }
 
-let title;
-let level;
-let questionQtt;
-let imgURL;
-let number;
+
 function createQuiz() {
     document.querySelector(".content.firstScreen").classList.add("hidden")
     document.querySelector(".content.thirdScreen").classList.remove("hidden")
@@ -70,28 +79,12 @@ function createQuestions() {
     ulQuestions.innerHTML = ""
     for (let i = 0; i < questionQtt; i++) {
         ulQuestions.innerHTML +=
-            `<li >
+            `<li class="questioning closed">
              <span>Pergunta ${i + 1}</span>
              <ion-icon onclick="openQuestion(this)" name="create-outline"></ion-icon>
-        </li>`
-    }
-}
 
-function openQuestion(elem) {
-    const opened = document.querySelector(".questioning")
-    if (opened !== null) {
-        opened.classList.remove("questioning")
-        opened.innerHTML = `<span>Pergunta ${number + 1}</span>
-        <ion-icon onclick="openQuestion(this)" name="create-outline"></ion-icon>` //keeps the number of the last question, because it's before the next definition 
-    }
-
-    number = Array.from(elem.closest("li").parentNode.children).indexOf(elem.closest("li")) //searching from the number of the question I'm clicking on ** creating an array so I can take the index
-
-    elem.closest("li").classList.add("questioning");
-    elem.closest("li").innerHTML =
-
-        `<div>
-            <span>Pergunta ${number + 1}</span>
+             <div class="hidden">
+        <div>
             <input class="question" placeholder="Texto da pergunta" type="text">
             <input class="question-color" placeholder="Cor de fundo da pergunta" type="text">
         </div>
@@ -113,10 +106,70 @@ function openQuestion(elem) {
             <input placeholder="Resposta incorreta 3" type="text">
             <input placeholder="URL da imagem 3" type="text">
         </div>
-        `
+        </div>
+        </li>`
+    }
 }
 
-//BIG PROBLEM, WHEN NONE IS OPEN, NONE HAS "QUESTIONING", THINK OF ANOTHER WAY OF MAKING IT WORK! I HAVE TO HAVE THE INPUTS VALUES EVEN IF ITS CLOSED! 
+function openQuestion(elem) {
+    const open = (elem.parentElement).querySelector("div")
+    const opened = (elem.parentElement).parentElement.querySelector(".opened")
+    if (opened !== null) {
+        opened.classList.remove("opened")
+        opened.classList.add("closed")
+        opened.querySelector("div").classList.add("hidden")
+    }
+    elem.parentElement.classList.remove("closed")
+    open.classList.remove("hidden")
+    elem.parentElement.classList.add("opened")
+    console.log(elem)
+
+
+}
+
+function createLevels() {
+    if (questionsValidation()) {
+        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
+        document.querySelector(".thirdScreenLevels").classList.remove("hidden")
+    }
+    else {
+        alert("Algum dos dados está fora dos requisitos para criação de quiz")
+    }
+
+    const ulLevel = document.querySelector(".thirdScreenLevels ul")
+    ulLevel.innerHTML = ""
+    for (let i = 0; i < level; i++) {
+        ulLevel.innerHTML +=
+            `<li class="level closed">
+        <span>Nível ${i + 1}</span>
+        <ion-icon onclick="openLevel(this)" name="create-outline"></ion-icon>
+
+        <div class="hidden">
+            <input class="level-title" placeholder="Título do nível" type="text">
+            <input class="min-right" placeholder="% de acerto mínima" type="text">
+            <input class="imgURL" placeholder="URL da imagem do nível" type="text">
+            <input class="level-description" placeholder="Descrição do nível" type="text">
+        </div>
+
+    </li>`
+    }
+}
+
+function openLevel(elem) {
+    const open = (elem.parentElement).querySelector("div")
+    const opened = (elem.parentElement).parentElement.querySelector(".opened")
+    if (opened !== null) {
+        opened.classList.remove("opened")
+        opened.classList.add("closed")
+        opened.querySelector("div").classList.add("hidden")
+    }
+    elem.parentElement.classList.remove("closed")
+    open.classList.remove("hidden")
+    elem.parentElement.classList.add("opened")
+    console.log(elem)
+}
+
+
 function questionsValidation() {
     const question = document.querySelectorAll(".question")
     const questionColor = document.querySelectorAll(".question-color")
@@ -124,46 +177,97 @@ function questionsValidation() {
     imgURL = document.querySelectorAll(".imgURL")
     const re = /[0-9A-Fa-f]{6}/g;
 
-    console.log(question.length)
+
     for (let i = 0; i < question.length; i++) {
         if (question[i].value.length < 20) {
+            console.log("a")
             return false;
         }
     }
-    
-    for (let i = 0; i < answer.length; i++){
-        if (answer[i].value === ""){
+
+    for (let i = 0; i < answer.length; i++) {
+        if (answer[i].value === "") {
+            console.log("b")
+            return false
+        }
+    }
+
+    for (let i = 0; i < imgURL.length; i++) {
+        if (!(imgURL[i].value.startsWith('https'))) {
+            console.log("d")
             return false
         }
     }
 
     for (let i = 0; i < questionColor.length; i++) {
+        let reTest = re.test(questionColor[i].value)
+        console.log(questionColor[i].value)
+        console.log(reTest)
+        if (reTest !== true) {
+            console.log("c")
+            console.log(reTest)
+            return false;
+        }
+        re.lastIndex = 0;
+    }
+    console.log("e")
+    return true;
+}
+function levelValidation() {
+    const levelTitle = document.querySelectorAll(".level-title")
+    const minRight = Array.from(document.querySelectorAll(".min-right"))
+    const levelDescription = document.querySelectorAll(".level-description")
+    imgURL = document.querySelectorAll(".imgURL")
+    let minRightNum=[]
 
-        if (!(re.test(questionColor[i].value))) {
+
+    for (let i = 0; i < levelTitle.length; i++) {
+        if (levelTitle[i].value.length < 10) {
+            console.log("a")
             return false;
         }
     }
-    for (let i = 0; i < imgURL.length; i++){
-        if (!(imgURL[i].value.startsWith('https'))){
+    for (let i = 0; i < minRight.length; i++) {
+        
+        minRightNum[i] = Number(minRight[i].value)
+        if ( minRightNum[i] < 0 || minRightNum[i]  > 100 || minRightNum[i] === "") {  
+            // 
+            console.log("b")
+            return false;
+        }
+    }
+    console.log(minRightNum)
+    console.log(minRightNum.some(checkZero))
+    if (!(minRightNum.some(checkZero))){
+        console.log("inferno")
+        return false;
+    }
+    for (let i = 0; i < levelDescription.length; i++) {
+        if (levelDescription[i].value.length < 30) {
+            console.log("c")
+            return false;
+        }
+    }
+    for (let i = 0; i < imgURL.length; i++) {
+        if (!(imgURL[i].value.startsWith('https'))) {
+            console.log("d")
             return false
         }
     }
+    console.log("e")
     return true;
 }
-
-
-
-function createLevels() {
-    if (questionsValidation()){
-        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
+function checkZero(elem){
+return elem === 0
+}
+function endQuiz() {
+    if (levelValidation()) {
+        document.querySelector(".thirdScreenLevels").classList.add("hidden")
     }
     else{
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
-
 }
-
-let id = 0;
 
 function initQuiz(idQuiz) {
     id = idQuiz.dataset.quiz;
@@ -176,7 +280,7 @@ function initQuiz(idQuiz) {
 function takeQuiz(resposta) {
     console.log(id)
     document.querySelector(".headQuizz").innerHTML = `<img src="${resposta.data.image}" /> <div class="titleQuiz">${resposta.data.title}</div> <div class="hideHead"></div>`
-    for (let i=0; i<resposta.data.questions.length; i++) { 
+    for (let i = 0; i < resposta.data.questions.length; i++) {
         const answersArr = []
      for (let j=0; j<resposta.data.questions[i].answers.length; j++) {
          answersArr.push(resposta.data.questions[i].answers[j])
