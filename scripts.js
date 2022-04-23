@@ -218,6 +218,7 @@ function levelValidation() {
     const minRight = Array.from(document.querySelectorAll(".min-right"))
     const levelDescription = document.querySelectorAll(".level-description")
     imgURL = document.querySelectorAll(".imgURL")
+    let minRightNum=[]
 
 
     for (let i = 0; i < levelTitle.length; i++) {
@@ -227,15 +228,19 @@ function levelValidation() {
         }
     }
     for (let i = 0; i < minRight.length; i++) {
-        let minRightNum=[]
+        
         minRightNum[i] = Number(minRight[i].value)
-        console.log(minRightNum)
-        if ( minRightNum < 0 || minRightNum  > 100 || !(minRightNum.some(checkZero))) {  
+        if ( minRightNum[i] < 0 || minRightNum[i]  > 100 || minRightNum[i] === "") {  
             // 
-            console.log(minRightNum.some(checkZero))
             console.log("b")
             return false;
         }
+    }
+    console.log(minRightNum)
+    console.log(minRightNum.some(checkZero))
+    if (!(minRightNum.some(checkZero))){
+        console.log("inferno")
+        return false;
     }
     for (let i = 0; i < levelDescription.length; i++) {
         if (levelDescription[i].value.length < 30) {
@@ -258,6 +263,9 @@ return elem === 0
 function endQuiz() {
     if (levelValidation()) {
         document.querySelector(".thirdScreenLevels").classList.add("hidden")
+    }
+    else{
+        alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
 }
 
