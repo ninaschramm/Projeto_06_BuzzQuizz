@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <header>BuzzQuizz</header>
+    <header onclick="reload()">BuzzQuizz</header>
 
     <div class="container">
 
@@ -41,7 +41,7 @@
             <div class="quizList allQuizzes">
                 <h1>Todos os Quizzes</h1>
                 <ul id="listAllQuizzes">
-           
+
 
                 </ul>
             </div>
@@ -50,12 +50,12 @@
 
 
         <div class="content secondScreen hidden">
-<div class="headQuizz">
-    
-</div>
-<div class="questionsQuizz">    
-    
-</div>
+            <div class="headQuizz">
+
+            </div>
+            <div class="questionsQuizz">
+
+            </div>
 
         </div>
 
@@ -73,11 +73,17 @@
             </div>
 
             <div class="thirdScreenQuestions hidden">
+                <h2>Crie suas perguntas</h2>
                 <ul></ul>
                 <button onclick="createLevels()">Prosseguir pra criar níveis</button>
 
             </div>
+            <div class="thirdScreenLevels hidden">
+                <h2>Agora, decida os níveis</h2>
+                <ul></ul>
+                <button onclick="endQuiz()">Finalizar Quizz</button>
 
+            </div>
         </div>
     </div>
 

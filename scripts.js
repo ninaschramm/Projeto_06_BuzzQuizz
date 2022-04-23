@@ -6,6 +6,9 @@ let number;
 
 let id = 0;
 
+function reload(){
+    window.location.reload()
+}
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
 
@@ -124,7 +127,49 @@ function openQuestion(elem) {
 
 }
 
-//BIG PROBLEM, WHEN NONE IS OPEN, NONE HAS "QUESTIONING", THINK OF ANOTHER WAY OF MAKING IT WORK! I HAVE TO HAVE THE INPUTS VALUES EVEN IF ITS CLOSED! 
+function createLevels() {
+    if (questionsValidation()) {
+        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
+        document.querySelector(".thirdScreenLevels").classList.remove("hidden")
+    }
+    else {
+        alert("Algum dos dados está fora dos requisitos para criação de quiz")
+    }
+
+    const ulLevel = document.querySelector(".thirdScreenLevels ul")
+    ulLevel.innerHTML = ""
+    for (let i = 0; i < level; i++) {
+        ulLevel.innerHTML +=
+            `<li class="level closed">
+        <span>Nível ${i + 1}</span>
+        <ion-icon onclick="openLevel(this)" name="create-outline"></ion-icon>
+
+        <div class="hidden">
+            <input class="level-title" placeholder="Título do nível" type="text">
+            <input class="min-right" placeholder="% de acerto mínima" type="text">
+            <input class="imgURL" placeholder="URL da imagem do nível" type="text">
+            <input class="level-description" placeholder="Descrição do nível" type="text">
+        </div>
+
+    </li>`
+    }
+}
+
+function openLevel(elem) {
+    const open = (elem.parentElement).querySelector("div")
+    const opened = (elem.parentElement).parentElement.querySelector(".opened")
+    if (opened !== null) {
+        opened.classList.remove("opened")
+        opened.classList.add("closed")
+        opened.querySelector("div").classList.add("hidden")
+    }
+    elem.parentElement.classList.remove("closed")
+    open.classList.remove("hidden")
+    elem.parentElement.classList.add("opened")
+    console.log(elem)
+}
+
+
 function questionsValidation() {
     const question = document.querySelectorAll(".question")
     const questionColor = document.querySelectorAll(".question-color")
@@ -168,17 +213,52 @@ function questionsValidation() {
     console.log("e")
     return true;
 }
+function levelValidation() {
+    const levelTitle = document.querySelectorAll(".level-title")
+    const minRight = Array.from(document.querySelectorAll(".min-right"))
+    const levelDescription = document.querySelectorAll(".level-description")
+    imgURL = document.querySelectorAll(".imgURL")
 
 
-
-function createLevels() {
-    if (questionsValidation()) {
-        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
+    for (let i = 0; i < levelTitle.length; i++) {
+        if (levelTitle[i].value.length < 10) {
+            console.log("a")
+            return false;
+        }
     }
-    else {
-        alert("Algum dos dados está fora dos requisitos para criação de quiz")
+    for (let i = 0; i < minRight.length; i++) {
+        let minRightNum=[]
+        minRightNum[i] = Number(minRight[i].value)
+        console.log(minRightNum)
+        if ( minRightNum < 0 || minRightNum  > 100 || !(minRightNum.some(checkZero))) {  
+            // 
+            console.log(minRightNum.some(checkZero))
+            console.log("b")
+            return false;
+        }
     }
-
+    for (let i = 0; i < levelDescription.length; i++) {
+        if (levelDescription[i].value.length < 30) {
+            console.log("c")
+            return false;
+        }
+    }
+    for (let i = 0; i < imgURL.length; i++) {
+        if (!(imgURL[i].value.startsWith('https'))) {
+            console.log("d")
+            return false
+        }
+    }
+    console.log("e")
+    return true;
+}
+function checkZero(elem){
+return elem === 0
+}
+function endQuiz() {
+    if (levelValidation()) {
+        document.querySelector(".thirdScreenLevels").classList.add("hidden")
+    }
 }
 
 function initQuiz(idQuiz) {
@@ -208,6 +288,8 @@ function takeQuiz(resposta) {
     }
 
 }
+
+
 
 function comparador() {
     return Math.random() - 0.5;
