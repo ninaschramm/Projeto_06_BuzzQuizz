@@ -182,17 +182,49 @@ function takeQuiz(resposta) {
          answersArr.push(resposta.data.questions[i].answers[j])
          answersArr.sort(comparador)
      }  
-    document.querySelector(".questionsQuizz").innerHTML += `<div class="question">
+    document.querySelector(".questionsQuizz").innerHTML += `<div class="question next">
     <div class="questionTitle" style="background-color:${resposta.data.questions[i].color}">${resposta.data.questions[i].title}</div>
    <div class="answers n_${[i]}"></div>
 </div>`
 for (let y=0; y< answersArr.length; y++) {
-    document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)"><img src="${answersArr[y].image}" /> ${answersArr[y].text}`
+    document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)" data-correct="${answersArr[y].isCorrectAnswer}"><div class="notselected hidden"></div>  <img src="${answersArr[y].image}" /> ${answersArr[y].text}</div>`
 }
     }
-
 }
 
 function comparador() { 
 	return Math.random() - 0.5; 
 }
+
+let pontos = 0;
+
+function chooseAnswer(selectedAnswer) {
+    if (selectedAnswer.dataset.correct == "true") {
+        pontos ++;
+    }
+    let parent = selectedAnswer.parentNode;
+    let parentAnswer = parent.classList[1];
+    let answerDiv = document.querySelector(`.${parentAnswer}`)
+    let parentQuestion = answerDiv.parentNode;
+    parentQuestion.classList.remove("next")
+
+    let answerList = answerDiv.querySelectorAll(`div.answer`)
+    console.log(answerList)
+    for (let i=0; i<answerList.length; i++) {        
+      answerList[i].querySelector(".notselected").classList.remove("hidden");
+      answerList[i].onclick="null";
+      if (answerList[i].dataset.correct == "true") {
+          answerList[i].classList.add("correctAnswer")
+      }
+      else {answerList[i].classList.add("wrongAnswer")}
+    }
+    selectedAnswer.querySelector(".notselected").classList.add("hidden")
+
+    nextAnswerDiv = document.querySelector(".next")
+    setTimeout(scrollNext, 2000); 
+}
+
+function scrollNext() {
+    nextAnswerDiv.scrollIntoView({behavior: "smooth"})
+}
+
