@@ -282,23 +282,72 @@ function takeQuiz(resposta) {
     document.querySelector(".headQuizz").innerHTML = `<img src="${resposta.data.image}" /> <div class="titleQuiz">${resposta.data.title}</div> <div class="hideHead"></div>`
     for (let i = 0; i < resposta.data.questions.length; i++) {
         const answersArr = []
-        for (let j = 0; j < resposta.data.questions[i].answers.length; j++) {
-            answersArr.push(resposta.data.questions[i].answers[j])
-            answersArr.sort(comparador)
-        }
-        document.querySelector(".questionsQuizz").innerHTML += `<div class="question">
+     for (let j=0; j<resposta.data.questions[i].answers.length; j++) {
+         answersArr.push(resposta.data.questions[i].answers[j])
+         answersArr.sort(comparador)
+     }  
+    document.querySelector(".questionsQuizz").innerHTML += `<div class="question next">
     <div class="questionTitle" style="background-color:${resposta.data.questions[i].color}">${resposta.data.questions[i].title}</div>
    <div class="answers n_${[i]}"></div>
 </div>`
-        for (let y = 0; y < answersArr.length; y++) {
-            document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)"><img src="${answersArr[y].image}" /> ${answersArr[y].text}`
-        }
+for (let y=0; y< answersArr.length; y++) {
+    document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)" data-correct="${answersArr[y].isCorrectAnswer}"><div class="notselected hidden"></div>  <img src="${answersArr[y].image}" /> ${answersArr[y].text}</div>`
+}
     }
-
 }
 
+function comparador() { 
+	return Math.random() - 0.5; 
+}
 
+let pontos = 0;
 
-function comparador() {
-    return Math.random() - 0.5;
+function chooseAnswer(selectedAnswer) {
+    if (selectedAnswer.dataset.correct == "true") {
+        pontos ++;
+    }
+    let parent = selectedAnswer.parentNode;
+    let parentAnswer = parent.classList[1];
+    let answerDiv = document.querySelector(`.${parentAnswer}`)
+    let parentQuestion = answerDiv.parentNode;
+    parentQuestion.classList.remove("next")
+
+    let answerList = answerDiv.querySelectorAll(`div.answer`)
+    console.log(answerList)
+    for (let i=0; i<answerList.length; i++) {        
+      answerList[i].querySelector(".notselected").classList.remove("hidden");
+      answerList[i].onclick="null";
+      if (answerList[i].dataset.correct == "true") {
+          answerList[i].classList.add("correctAnswer")
+      }
+      else {answerList[i].classList.add("wrongAnswer")}
+    }
+    selectedAnswer.querySelector(".notselected").classList.add("hidden")
+
+    nextAnswerDiv = document.querySelector(".next")
+    setTimeout(scrollNext, 2000); 
+
+    isTestOver()
+}
+
+function scrollNext() {
+    nextAnswerDiv.scrollIntoView({behavior: "smooth"})
+}
+
+testOver = false;
+const resultDiv = document.querySelector(".resultQuizz");
+
+function isTestOver() {
+    if (document.querySelector(".next") == null) {
+        testOver = true;
+    }
+    if (testOver === true) {
+        resultDiv.classList.remove("hidden");
+        setTimeout(scrollResult, 2000)
+
+    }
+}
+
+function scrollResult() {
+    resultDiv.scrollIntoView({behavior: "smooth"})
 }
