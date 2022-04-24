@@ -20,6 +20,9 @@ header {
     align-items: center;
     z-index: 3;
 }
+header ::placeholder{
+    cursor: pointer;
+}
 
 .content {
     display: flex;
