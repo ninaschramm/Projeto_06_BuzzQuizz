@@ -7,7 +7,6 @@ let question;
 let questionColor;
 let answer;
 let id = 0;
-let pontos = 0;
 
 let questions = [];
 let answers = [];
@@ -333,6 +332,8 @@ function endQuiz() {
 
 }
 
+
+//exec 1
 function initQuiz(idQuiz) {
     id = idQuiz.dataset.quiz;
     document.querySelector(".firstScreen").classList.add("hidden")
@@ -341,8 +342,11 @@ function initQuiz(idQuiz) {
     promise.then(takeQuiz)
 }
 
+let numberOfQuestions;
+
 function takeQuiz(resposta) {
-    console.log(id)
+    console.log(id);
+    numberOfQuestions = resposta.data.questions.length;
     document.querySelector(".headQuizz").innerHTML = `<img src="${resposta.data.image}" /> <div class="titleQuiz">${resposta.data.title}</div> <div class="hideHead"></div>`
     for (let i = 0; i < resposta.data.questions.length; i++) {
         const answersArr = []
@@ -365,8 +369,11 @@ function comparador() {
 }
 
 
+let pontos = 0;
+let answersSelected = 0;
 
 function chooseAnswer(selectedAnswer) {
+    answersSelected ++;
     if (selectedAnswer.dataset.correct == "true") {
         pontos++;
     }
@@ -377,14 +384,13 @@ function chooseAnswer(selectedAnswer) {
     parentQuestion.classList.remove("next")
 
     let answerList = answerDiv.querySelectorAll(`div.answer`)
-    console.log(answerList)
-    for (let i = 0; i < answerList.length; i++) {
-        answerList[i].querySelector(".notselected").classList.remove("hidden");
-        answerList[i].onclick = "null";
-        if (answerList[i].dataset.correct == "true") {
-            answerList[i].classList.add("correctAnswer")
-        }
-        else { answerList[i].classList.add("wrongAnswer") }
+    for (let i=0; i<answerList.length; i++) {        
+      answerList[i].querySelector(".notselected").classList.remove("hidden");
+      answerList[i].onclick="null";
+      if (answerList[i].dataset.correct == "true") {
+          answerList[i].classList.add("correctAnswer")
+      }
+      else {answerList[i].classList.add("wrongAnswer")}
     }
     selectedAnswer.querySelector(".notselected").classList.add("hidden")
 
@@ -402,19 +408,71 @@ testOver = false;
 const resultDiv = document.querySelector(".resultQuizz");
 
 function isTestOver() {
-    if (document.querySelector(".next") == null) {
+    if (answersSelected === numberOfQuestions) {
         testOver = true;
     }
     if (testOver === true) {
         resultDiv.classList.remove("hidden");
+        document.querySelector(".restartQuiz").classList.remove("hidden");
+        document.querySelector(".backHome").classList.remove("hidden");
         setTimeout(scrollResult, 2000)
-
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+        promise.then(showResult)
     }
+    
 }
 
 function scrollResult() {
-    resultDiv.scrollIntoView({ behavior: "smooth" })
+    resultDiv.scrollIntoView({behavior: "smooth"})
 }
 
+let score = 0;
+let x = 0;
+let sortable = [];
 
+function showResult(resposta) {
+    const resultDiv = document.querySelector(".resultQuizz");
+    score = pontos / resposta.data.questions.length * 100;
+    score = Math.round(score)
+    
+    for (let i=0; i<resposta.data.levels.length; i++) {
+        numb = Number(resposta.data.levels[i].minValue)
+        sortable.push([i, numb])
+    }
 
+    for (let i=0; i<sortable.length-1; i++) {
+        if (sortable[i][1] > sortable[i+1][1]) {
+            temp = sortable[i];
+            sortable[i] = sortable[i+1];
+            sortable[i+1] = temp;
+        }
+    }
+    console.log(sortable)
+
+    for (let k=0; k<sortable.length; k++) {
+        if (score >= sortable[k][1]) {
+            x = sortable[k][0];
+        }
+    }
+    
+    console.log(score, x)
+    resultDiv.innerHTML = `<div class="resultTitle">${score}% de acerto: ${resposta.data.levels[x].title}</div>
+    <div class="result">
+        <img src="${resposta.data.levels[x].image}">
+        <span>${resposta.data.levels[x].text}</span>
+        </div>`
+
+}
+
+function restartQuiz() {    
+    pontos = 0;
+    answersSelected = 0;
+    testOver = false;
+    sortable = [];
+    document.querySelector(".questionsQuizz").innerHTML = "";
+    resultDiv.classList.add("hidden");
+    document.querySelector(".restartQuiz").classList.add("hidden");
+    document.querySelector(".backHome").classList.add("hidden");
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+    promise.then(takeQuiz)
+}

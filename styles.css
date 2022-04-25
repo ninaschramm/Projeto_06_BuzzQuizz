@@ -26,7 +26,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 90px;
+    margin-top: 70px;
 }
 
 .firstScreen {
@@ -90,7 +90,7 @@ header {
 ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 15px;
 }
 
 .li_quizz {
@@ -327,8 +327,9 @@ ul {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 20px 0;
+    margin: 22px 0;
     padding: 40px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 .thirdScreen .question {
     padding: 0;
@@ -344,6 +345,7 @@ ul {
     font-weight: 700;
     font-size: 23px;
     text-align: center;
+    word-wrap: break-word;
 }
 
 .answers {
@@ -387,7 +389,7 @@ ul {
 .notselected {
     position: absolute;
     width: 330px;
-    height: 200px;
+    height: 100%;
     background-color: #ffffff;
     z-index: 1;
     opacity: 0.6;
@@ -396,9 +398,81 @@ ul {
 .resultQuizz {
     width: 760px;
     height: auto;
-    margin-top: 400px;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    padding: 18px;
 }
 
+.resultTitle {
+    width: 727px;
+    height: 100px;
+    background: #EC362D;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 27px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #FFFFFF;
+    word-wrap: break-word;    
+    justify-content: center;
+}
+
+.result {
+    font-weight: 700;
+    font-size: 19px;
+    display: flex;
+    width: 727px;
+    justify-content: space-between;
+}
+
+.result img {
+    width: 364px;
+    height: 273px;
+}
+
+.result span {    
+    word-wrap: break-word;
+    text-align: start;
+    width: 330px;
+}
+
+.restartQuiz {
+    width: 260px;
+    height: 52px;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: #FFF5F4;
+    background: #EC362D;
+    border: none;
+    border-radius: 15px;
+    margin-top: 55px;
+}
+
+.backHome {
+    width: 220px;
+    height: 44px;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 21px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: #818181;
+    margin: 20px 0;
+}
 
 
 
