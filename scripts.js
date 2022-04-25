@@ -364,35 +364,32 @@ function scrollResult() {
 
 let score = 0;
 let x = 0;
+let sortable = [];
 
 function showResult(resposta) {
     const resultDiv = document.querySelector(".resultQuizz");
     score = pontos / resposta.data.questions.length * 100;
     score = Math.round(score)
-    let sortable = [];
+    
     for (let i=0; i<resposta.data.levels.length; i++) {
         numb = Number(resposta.data.levels[i].minValue)
         sortable.push([i, numb])
     }
 
     for (let i=0; i<sortable.length-1; i++) {
-        if (sortable[i][1] < sortable[i+1][1]) {
+        if (sortable[i][1] > sortable[i+1][1]) {
             temp = sortable[i];
             sortable[i] = sortable[i+1];
             sortable[i+1] = temp;
         }
+    }
     console.log(sortable)
 
-    for (let i=0; i<sortable.length-1; i++) {
-        if (x >= sortable[i][1]) {
-            x = i;
+    for (let k=0; k<sortable.length; k++) {
+        if (score >= sortable[k][1]) {
+            x = sortable[k][0];
         }
-        console.log(x)
     }
-    }
-
-
-        console.log(x)
     
     console.log(score, x)
     resultDiv.innerHTML = `<div class="resultTitle">${score}% de acerto: ${resposta.data.levels[x].title}</div>
@@ -407,6 +404,7 @@ function restartQuiz() {
     pontos = 0;
     answersSelected = 0;
     testOver = false;
+    sortable = [];
     document.querySelector(".questionsQuizz").innerHTML = "";
     resultDiv.classList.add("hidden");
     document.querySelector(".restartQuiz").classList.add("hidden");
