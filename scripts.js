@@ -101,7 +101,7 @@ function createQuestions() {
         <div>
             <span>Resposta correta</span>
             <input class="answer" placeholder="Resposta correta" type="text">
-            <input class="imgURL" placeholder="URL da imagem" type="text">
+            <input class="imgURL correct-answer${i}" placeholder="URL da imagem" type="text">
         </div>
         <div>
         <span>Respostas incorretas</span>   
@@ -282,52 +282,66 @@ function endQuiz() {
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
-
-    for (let i = 0; i < questionQtt; i++) {
-        questions.push([
-            {
-                title: question[i].value,
-                color: questionColor[i].value,
-                answers: [
-                    answers[i]
-                ]
-            }
-        ])
-    }
+    // const empty = (elem) => (elem !== "");
+    // let arrNotEmpty = [];
+    // let newNotEmpty = [];
+    // let finalArray = [];
 
 
+   
 
-    let obj = {
-        title: `${title}`,
-        image: imgURL[0].value,
-        questions: questions
-    }
+    // for (let i = 0; i < questionQtt; i++) {
+    //     questions.push([
+    //         {
+    //             title: question[i].value,
+    //             color: questionColor[i].value,
+    //             answers: [
+    //                 answers[i]
+    //             ]
+    //         }
+    //     ])
+    // }
 
-    console.log(obj)
-    console.log(imgURL[0].value)
-    console.log(title)
 
-    const empty = (elem) => (elem !== "");
-    let arrNotEmpty = [];
-    let newNotEmpty = [];
 
-    for (let i = 0; i < questionQtt; i++) {
+    // let obj = {
+    //     title: `${title}`,
+    //     image: imgURL[0].value,
+    //     questions: questions
+    // }
 
-        let notEmpty = document.querySelectorAll(`.incorrect-answer${i}`);
-        // console.log(notEmpty.length)
+    // console.log(obj)
+    // console.log(imgURL[0].value)
+    // console.log(title)
 
-        for (let j = 0; j < notEmpty.length; j++) {
-            newNotEmpty.push(notEmpty[j].value);
-            arrNotEmpty = newNotEmpty.filter(empty)
 
-            console.log(j)
-        }
+    // for (let i = 0; i < questionQtt; i++) {
 
-        // console.log(arrNotEmpty)
-        console.log(i)
-        console.log(arrNotEmpty)
-        newNotEmpty = [];
-    }
+    //     const notEmpty = document.querySelectorAll(`.incorrect-answer${i}`);
+    //     const correctURL = document.querySelectorAll(`.correct-answer${i}`);
+    //     // console.log(notEmpty.length)
+
+    //     for (let j = 0; j < notEmpty.length; j++) {
+    //         newNotEmpty.push(notEmpty[j].value);
+    //         arrNotEmpty = newNotEmpty.filter(empty)
+
+    //         console.log(j)
+    //     }
+
+    //     console.log(arrNotEmpty)
+    //     console.log(i)
+    //     console.log(arrNotEmpty)
+    //     finalArray.push(arrNotEmpty)
+    //     console.log(finalArray)
+    //     for (let c = 0; c < correctURL.length; c++){
+    //         answers[0].image = correctURL[c].value
+    //     }
+        
+    //     for (let k = 1; k < finalArray.length; i++){
+    //         answers[k].image = finalArray
+    //     }
+    //     newNotEmpty = [];
+    // }
 
 
 }

@@ -29,6 +29,10 @@ header {
     margin-top: 70px;
 }
 
+.content.thirdScreen {
+    margin-top: 90px;
+}
+
 .firstScreen {
     margin-top: 140px;
 }
@@ -247,10 +251,12 @@ ul {
     flex-direction: row;
     justify-content: space-around;
 }
-.thirdScreenQuestions li.opened>div{
+
+.thirdScreenQuestions li.opened>div {
     display: flex;
     flex-direction: column;
 }
+
 .thirdScreenLevels li.level {
     height: 316px;
 }
@@ -261,9 +267,10 @@ ul {
     padding: 28px 20px;
     box-sizing: border-box;
 }
-.thirdScreen li.opened{
+
+.thirdScreen li.opened {
     display: flex;
-   justify-content: center;
+    justify-content: center;
 }
 
 .thirdScreen li.closed ion-icon {
@@ -331,6 +338,7 @@ ul {
     padding: 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
+
 .thirdScreen .question {
     padding: 0;
 }
@@ -379,7 +387,7 @@ ul {
 }
 
 .correctAnswer {
-    color: #009C22;    
+    color: #009C22;
 }
 
 .wrongAnswer {
@@ -419,7 +427,7 @@ ul {
     align-items: center;
     text-align: center;
     color: #FFFFFF;
-    word-wrap: break-word;    
+    word-wrap: break-word;
     justify-content: center;
 }
 
@@ -436,7 +444,7 @@ ul {
     height: 273px;
 }
 
-.result span {    
+.result span {
     word-wrap: break-word;
     text-align: start;
     width: 330px;
