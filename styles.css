@@ -19,6 +19,7 @@ header {
     justify-content: center;
     align-items: center;
     z-index: 3;
+    cursor: pointer;
 }
 
 .content {
@@ -238,7 +239,10 @@ ul {
     flex-direction: row;
     justify-content: space-around;
 }
-
+.thirdScreenQuestions li.opened>div{
+    display: flex;
+    flex-direction: column;
+}
 .thirdScreenLevels li.level {
     height: 316px;
 }
@@ -248,6 +252,10 @@ ul {
     flex-direction: row;
     padding: 28px 20px;
     box-sizing: border-box;
+}
+.thirdScreen li.opened{
+    display: flex;
+   justify-content: center;
 }
 
 .thirdScreen li.closed ion-icon {
@@ -315,6 +323,9 @@ ul {
     margin: 22px 0;
     padding: 40px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+.thirdScreen .question {
+    padding: 0;
 }
 
 .questionTitle {
