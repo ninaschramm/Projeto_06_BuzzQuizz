@@ -270,7 +270,7 @@ function questionsValidation() {
     }
 
     for (let i = 0; i < imgURL_list.length; i++) {
-        if (!(imgURL_list[i].value.startsWith('https')) && imgURL_list[i].value != "") {
+        if (!(imgURL_list[i].value.startsWith('https'))) {
             console.log("d")
             return false
         }
