@@ -3,6 +3,12 @@ let level;
 let questionQtt;
 let imgURL;
 let number;
+let quizToPost = {
+    title: "",
+    image: "",
+    questions: [],
+    levels: [],    
+}
 
 let id = 0;
 
@@ -33,20 +39,9 @@ function listQuizzes(quizzes) {
      <div>${quizzes.data[i].title}</div> 
  </li>`
     }
-
-
-    if (quizzes.data.length < 3) { adjustSize() }
 }
 
 getQuizzes()
-
-function adjustSize() {
-    {
-        document.querySelector(".li_quizz").classList.add("adjustMargin");
-        allQuizzes.classList.add("adjustSpace");
-    }
-}
-
 
 function createQuiz() {
     document.querySelector(".content.firstScreen").classList.add("hidden")
@@ -69,8 +64,12 @@ function createQuestions() {
     if (validationQuestions()) {
         document.querySelector(".thirdScreenStart").classList.add("hidden")
         document.querySelector(".thirdScreenQuestions").classList.remove("hidden")
-
-    }
+        const quizTitle = document.getElementById("quizTitle");
+        const quizURL = document.getElementById("quizURL");
+        quizToPost.title = quizTitle.value;
+        quizToPost.image = quizURL.value;
+        console.log(quizToPost);
+    }    
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
@@ -90,21 +89,21 @@ function createQuestions() {
         </div>
         <div>
             <p>Resposta correta</p>
-            <input class="answer" placeholder="Resposta correta" type="text">
-            <input class="imgURL" placeholder="URL da imagem" type="text">
+            <input class="answer answer${i} mandatory" data-correct="true" placeholder="Resposta correta" type="text">
+            <input class="imgURL imgURL${i} mandatory" placeholder="URL da imagem" type="text">
         </div>
         <div>
         <span>Respostas incorretas</span>   
-            <input class="answer" placeholder="Resposta incorreta 1" type="text">
-            <input class="imgURL" placeholder="URL da imagem 1" type="text">
+            <input class="answer answer${i} mandatory" data-correct="false" placeholder="Resposta incorreta 1" type="text">
+            <input class="imgURL imgURL${i} mandatory" placeholder="URL da imagem 1" type="text">
         </div>
         <div>
-            <input placeholder="Resposta incorreta 2" type="text">
-            <input placeholder="URL da imagem 2" type="text">
+            <input class="answer answer${i}" data-correct="false" placeholder="Resposta incorreta 2" type="text">
+            <input class="imgURL imgURL${i}" placeholder="URL da imagem 2" type="text">
         </div>
         <div>
-            <input placeholder="Resposta incorreta 3" type="text">
-            <input placeholder="URL da imagem 3" type="text">
+            <input class="answer answer${i}" data-correct="false" placeholder="Resposta incorreta 3" type="text">
+            <input class="imgURL imgURL${i}" placeholder="URL da imagem 3" type="text">
         </div>
         </div>
         </li>`
@@ -124,14 +123,35 @@ function openQuestion(elem) {
     elem.parentElement.classList.add("opened")
     console.log(elem)
 
+}
 
+function checkForNull(elt) {
+    return elt != "";
 }
 
 function createLevels() {
     if (questionsValidation()) {
-        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
-        document.querySelector(".thirdScreenLevels").classList.remove("hidden")
-    }
+        document.querySelector(".thirdScreenQuestions").classList.add("hidden");
+        document.querySelector(".thirdScreenLevels").classList.remove("hidden");
+        const question = document.querySelectorAll(".questioning .question");
+        const questionColor = document.querySelectorAll(".question-color");
+        for (let i=0; i<question.length; i++) {
+            let answer = document.querySelectorAll(`.answer${i}`);            
+            console.log(answer)
+            let imgURL_list = document.querySelectorAll(`.imgURL${i}`);
+            quizToPost.questions.push({
+                title: question[i].value,
+                color: questionColor[i].value,
+                answers: [],
+            })
+            for (let j=0; j<answer.length; j++) {
+                if (answer[j].value != "") {
+            quizToPost.questions[i].answers.push({
+                text: answer[j].value,
+                image: imgURL_list[j].value,
+                isCorrectAnswer: answer[j].dataset.correct
+            })}}
+        }}
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
@@ -171,10 +191,10 @@ function openLevel(elem) {
 
 
 function questionsValidation() {
-    const question = document.querySelectorAll(".question")
+    const question = document.querySelectorAll(".questioning .question")
     const questionColor = document.querySelectorAll(".question-color")
-    const answer = document.querySelectorAll(".answer")
-    imgURL = document.querySelectorAll(".imgURL")
+    const answer = document.querySelectorAll(".answer.mandatory")
+    const imgURL_list = document.querySelectorAll(".imgURL.mandatory")
     const re = /[0-9A-Fa-f]{6}/g;
 
 
@@ -185,15 +205,17 @@ function questionsValidation() {
         }
     }
 
-    for (let i = 0; i < answer.length; i++) {
+
+    //FILTRAR AQUI POR ANSWER DENTRO DE QUESTION DEPOIS
+    for (let i = 0; i < 2; i++) {
         if (answer[i].value === "") {
             console.log("b")
             return false
         }
     }
 
-    for (let i = 0; i < imgURL.length; i++) {
-        if (!(imgURL[i].value.startsWith('https'))) {
+    for (let i = 0; i < imgURL_list.length; i++) {
+        if (!(imgURL_list[i].value.startsWith('https')) && imgURL_list[i].value != "") {
             console.log("d")
             return false
         }
@@ -263,6 +285,7 @@ return elem === 0
 function endQuiz() {
     if (levelValidation()) {
         document.querySelector(".thirdScreenLevels").classList.add("hidden")
+        axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
     }
     else{
         alert("Algum dos dados está fora dos requisitos para criação de quiz")

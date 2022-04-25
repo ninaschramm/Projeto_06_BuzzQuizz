@@ -148,14 +148,6 @@ ul {
     margin: 24px 0;
 }
 
-.adjustSpace {
-    justify-content: flex-start;
-}
-
-.adjustMargin {
-    margin-right: 20px;
-}
-
 .thirdScreen input {
     width: 94%;
     height: 46px;
@@ -264,10 +256,11 @@ ul {
 
 .thirdScreenQuestions input {
     margin: 8px 0;
-
 }
 
-
+.thirdScreenQuestions {
+    margin-top: 20px;
+}
 
 .headQuizz {
     position: relative;
@@ -343,6 +336,7 @@ ul {
     flex-wrap: wrap;
     margin-top: 25px;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 
@@ -446,6 +440,7 @@ ul {
     border: none;
     border-radius: 15px;
     margin-top: 55px;
+    cursor: pointer;
 }
 
 .backHome {
@@ -461,6 +456,7 @@ ul {
     justify-content: center;
     color: #818181;
     margin: 20px 0;
+    cursor: pointer;
 }
 
 
