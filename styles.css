@@ -176,7 +176,7 @@ ul {
 }
 
 .thirdScreen div {
-    width: 40%;
+    width: 70%;
 }
 
 .thirdScreen button {
@@ -532,6 +532,7 @@ ul {
     margin: 20px 0;
     cursor: pointer;
 }
+<<<<<<< HEAD
 
 .deleteQuiz {
     position: absolute;
@@ -542,6 +543,21 @@ ul {
     background: #EC362D;
     border-radius: 10px 0px 0px 11px;
     cursor: pointer;
+=======
+.loading{
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: medium;
+    width: 100%;
+    height: 100%;
+    color: #EC362D;
+    position: fixed;
+    top: 0;
+    left: 0;
+>>>>>>> 7504fb1c7dfbceb0ec3aa3d38fca3a2c18f2bf2f
 }
 
 .deleteQuiz ion-icon {

@@ -19,7 +19,7 @@ function reload() {
 
 function getQuizzes() {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes")
-
+    document.querySelector(".loading").classList.remove("hidden")
     promise.then(listQuizzes)
     promise.catch(treatError)
 }
@@ -39,25 +39,26 @@ let myQuizzesList;
 let myQuizzesKeys;
 
 function setMyQuizzesList() {
-if (JSON.parse(listSerial) == null) {
-    myQuizzesList = [];
-}
-else { 
-    myQuizzesList = JSON.parse(listSerial);
-}
-if  (JSON.parse(keysSerial) == null) {
-    myQuizzesKeys = [];
-}
-else {
-    myQuizzesKeys = JSON.parse(keysSerial)
-}
+    if (JSON.parse(listSerial) == null) {
+        myQuizzesList = [];
+    }
+    else {
+        myQuizzesList = JSON.parse(listSerial);
+    }
+    if  (JSON.parse(keysSerial) == null) {
+        myQuizzesKeys = [];
+    }
+    else {
+        myQuizzesKeys = JSON.parse(keysSerial)
+    }
 }
 
 setMyQuizzesList()
 
 function listQuizzes(quizzes) {
+    document.querySelector(".loading").classList.add("hidden")
     funciona()
-    
+
     console.log(myQuizzesList)
     if (myQuizzesList.length != 0)
     {document.querySelector(".noQuiz").classList.add("hidden");
@@ -93,7 +94,7 @@ function validationQuestions() {
     questionQtt = Number(document.querySelector("input.questionQtt").value)
     level = Number(document.querySelector("input.level").value)
     imgURL = document.querySelector("input.imgURL")
-
+   
     if (title.length < 20 || title.length > 65 || questionQtt < 3 || level < 2 || !(imgURL.value.startsWith('https'))) {
         return false
     }
@@ -176,7 +177,6 @@ function questionsValidation() {
 
     for (let i = 0; i < question.length; i++) {
         if (question[i].value.length < 20) {
-            console.log("a")
             return false;
         }
     }
@@ -342,6 +342,7 @@ function endQuiz() {
         }
         console.log(quizToPost)
         let promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
+        document.querySelector(".loading").classList.remove("hidden")
         promise.then(final)
         promise.catch(function () { alert("Erro ao criar seu quiz.") })
     }
@@ -352,6 +353,7 @@ function endQuiz() {
 }
 
 function final(response) {
+    document.querySelector(".loading").classList.add("hidden")
     document.querySelector(".thirdScreenLevels").classList.add("hidden")
     document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
 
@@ -368,8 +370,7 @@ function final(response) {
     console.log(response)
 }
 
-function SaveDataToLocalStorage(data)
-{
+function SaveDataToLocalStorage(data) {
     let a = [];
     // Parse the serialized data back into an aray of objects
     a = JSON.parse(localStorage.getItem("myQuizzesList")) || [];
@@ -401,12 +402,14 @@ function initQuiz(idQuiz) {
     document.querySelector(".thirdScreen").classList.add("hidden")
     document.querySelector(".secondScreen").classList.remove("hidden")
     const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+    document.querySelector(".loading").classList.remove("hidden")
     promise.then(takeQuiz)
 }
 
 let numberOfQuestions;
 
 function takeQuiz(resposta) {
+    document.querySelector(".loading").classList.add("hidden")
     console.log(id);
     numberOfQuestions = resposta.data.questions.length;
     document.querySelector(".headQuizz").innerHTML = `<img src="${resposta.data.image}" /> <div class="titleQuiz">${resposta.data.title}</div> <div class="hideHead"></div>`
@@ -536,6 +539,8 @@ function restartQuiz() {
     document.querySelector(".restartQuiz").classList.add("hidden");
     document.querySelector(".backHome").classList.add("hidden");
     const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+
+    document.querySelector(".loading").classList.remove("hidden")
     promise.then(takeQuiz)
 }
 
