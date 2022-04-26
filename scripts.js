@@ -62,29 +62,23 @@ function listQuizzes(quizzes) {
     if (myQuizzesList.length != 0)
     {document.querySelector(".noQuiz").classList.add("hidden");
     document.querySelector(".yourQuizzes").classList.remove("hidden")}
-
     for (let i = 0; i < quizzes.data.length; i++) {
         if (myQuizzesList.includes(quizzes.data[i].id)) {
             yourQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
-            <div class="deleteQuiz"></div><div>${quizzes.data[i].title}</div> </li>`
+            <button class="deleteQuiz" data-id="${quizzes.data[i].id}" onclick="deleteQuiz(this)"><ion-icon name="trash-outline"></ion-icon></button><div>${quizzes.data[i].title}</div> </li>`
         }
         else {
             allQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
             <div>${quizzes.data[i].title}</div> </li>`
         }
     }
+    if (yourQuizzes.innerHTML == "") {
+    document.querySelector(".noQuiz").classList.remove("hidden");
+    document.querySelector(".yourQuizzes").classList.add("hidden")
+    }
 }
-
 
 getQuizzes()
-
-function takeMyQuiz() {
-    id = lastId;
-    const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
-    promise.then(takeQuiz)
-    document.querySelector(".content.firstScreen").classList.remove("hidden")
-    document.querySelector(".content.thirdScreen").classList.add("hidden")
-}
 
 
 //after we click on the part to create Quiz, the first screen will be hidden 
@@ -360,8 +354,7 @@ function endQuiz() {
 function final(response) {
     document.querySelector(".thirdScreenLevels").classList.add("hidden")
     document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
-    let selectedItem = {}
-    selectedItem.id = response.data.id
+
     const insert = document.querySelector(".thirdScreenSuccess")
     insert.innerHTML = `<h2>Seu quizz está pronto!</h2>
     <ul><li class="li_quizz" style="background-image: url('${response.data.image}')" data-quiz="${response.data.id}" onclick="initQuiz(this)">
@@ -544,4 +537,21 @@ function restartQuiz() {
     document.querySelector(".backHome").classList.add("hidden");
     const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
     promise.then(takeQuiz)
+}
+
+function deleteQuiz(elt) {
+    for (let i=0; i<myQuizzesList.length; i++) {
+        console.log(elt.dataset.id)
+    if (elt.dataset.id == myQuizzesList[i]) {
+        j = i;
+    }} console.log(j)
+    let key = myQuizzesKeys[j];
+    
+    const headers = {
+        'Secret-Key': key
+      }
+      
+      if (confirm("Está certo disso?") == true) {
+        axios.delete(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${elt.dataset.id}`, {headers})
+      }
 }

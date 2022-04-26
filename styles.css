@@ -106,10 +106,6 @@ header {
     cursor: pointer;
 }
 
-.yourQuizzes {
-    position: absolute;
-}
-
 .yourQuizzes li {
     position: relative;
 }
@@ -540,14 +536,19 @@ ul {
 .deleteQuiz {
     position: absolute;
     right: 0;
-    top: 10px;
+    top: 20px;
     width: 43px;
-    height: 87px;
+    height: 43px;
     background: #EC362D;
     border-radius: 10px 0px 0px 11px;
+    cursor: pointer;
 }
 
-
+.deleteQuiz ion-icon {
+    color: #FFFFFF;
+    font-size: 20px;
+    z-index: 1;
+}
 
 
 

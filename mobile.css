@@ -23,11 +23,13 @@
         width: 100%;
     }
 
-    .allQuizzes ul {
+    .allQuizzes ul,  .yourQuizzes ul {
         display: flex;
         justify-content: space-around;
     }
-
+    .createQuizBtn{
+        justify-content: space-between;
+    }
     .quizList,
     .secondScreen .resultQuizz .result {
         width: 90%;
