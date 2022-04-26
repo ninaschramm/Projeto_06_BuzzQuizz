@@ -5,29 +5,73 @@
 
     .container,
     #listAllQuizzes li,
-    #listAllQuizzes li div {
+    #listAllQuizzes li div,
+    .secondScreen .questionsQuizz,
+    .secondScreen .questionsQuizz .question,
+    .secondScreen .questionsQuizz .question .questionTitle,
+    .secondScreen .questionsQuizz .question .answers,
+    .secondScreen .resultQuizz,
+    .secondScreen .resultQuizz .resultTitle,
+    .notselected,
+    .thirdScreen div.thirdScreenStart,
+    .thirdScreen div.thirdScreenStart div,
+    .thirdScreen div.thirdScreenQuestions,
+    .thirdScreen div.thirdScreenQuestions ul,
+    .thirdScreen div.thirdScreenLevels,
+    .thirdScreen div.thirdScreenLevels ul {
+
         width: 100%;
     }
 
-    .quizList {
+    .quizList,
+    .secondScreen .resultQuizz .result {
         width: 90%;
     }
 
     #listAllQuizzes li {
         background-size: cover;
         background-position: center;
+        padding-top: 56.25%;
+    }
+
+    .secondScreen .questionsQuizz .question {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .secondScreen .questionsQuizz .question .answers>div:nth-child(even) img,
+    .secondScreen .questionsQuizz .question .answers>div:nth-child(even) span {
+        display: flex;
+        flex-direction: column;
+        margin-left: 4%;
+    }
+
+    .secondScreen .questionsQuizz .question .answer {
+        width: 50%;
+    }
+
+    .secondScreen .questionsQuizz .question .answer img {
+        height: 75%;
+        width: 96%;
+    }
+
+    .secondScreen .resultQuizz .result span {
+        padding-left: 5%;
+        box-sizing: border-box;
+        word-break: break-all;
 
     }
 
-    .secondScreen .questionsQuizz {
-        width: 100%;
+    .secondScreen .resultQuizz .result img {
+        height: 75%;
+        width: 50%;
     }
 
-    .secondScreen .questionsQuizz .next {
-        width: 100%;
+    .secondScreen .titleQuiz,
+    .secondScreen .questionTitle,
+    .secondScreen .resultQuizz .resultTitle {
+        word-break: break-all;
     }
 
-    .secondScreen .questionsQuizz .next .questionTitle {
-        width: 100%;
-    }
+
 }

@@ -158,7 +158,7 @@ function questionsValidation() {
     const questionColor = document.querySelectorAll(".question-color")
     const answer = document.querySelectorAll(".answer.mandatory")
     const imgURL_list = document.querySelectorAll(".imgURL.mandatory")
-    const re = /[0-9A-Fa-f]{6}/g;
+    const re = /^#[0-9A-Fa-f]{6}$/g;
 
 
     for (let i = 0; i < question.length; i++) {
@@ -218,7 +218,7 @@ function createLevels() {
             let imgURL_list = document.querySelectorAll(`.imgURL${i}`);
             quizToPost.questions.push({
                 title: question[i].value,
-                color: "#" + questionColor[i].value,
+                color: questionColor[i].value,
                 answers: [],
             })
             for (let j = 0; j < answer.length; j++) {
@@ -314,8 +314,6 @@ function levelValidation() {
 
 function endQuiz() {
     if (levelValidation()) {
-        document.querySelector(".thirdScreenLevels").classList.add("hidden")
-        document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
 
         const levelTitle = document.querySelectorAll(".level-title")
         const minRight = Array.from(document.querySelectorAll(".min-right"))
@@ -330,8 +328,9 @@ function endQuiz() {
             })
         }
         console.log(quizToPost)
-        const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
-        promise.then(successfulQuiz)
+        let promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
+        promise.then(final)
+        promise.catch(function () { alert("Erro ao criar seu quiz.") })
     }
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
@@ -339,9 +338,19 @@ function endQuiz() {
 
 }
 
-
-function successfulQuiz(resposta) {
-    lastId = resposta.data.id;
+function final(response) {
+    document.querySelector(".thirdScreenLevels").classList.add("hidden")
+    document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
+    let selectedItem = {}
+    selectedItem.id = response.data.id
+    const insert = document.querySelector(".thirdScreenSuccess")
+    insert.innerHTML = `<h2>Seu quizz está pronto!</h2>
+    <ul><li class="li_quizz" style="background-image: url('${response.data.image}')" data-quiz="${response.data.id}" onclick="initQuiz(this)">
+    <div>${response.data.title}</div> 
+    </li></ul>
+    <button data-quiz="${response.data.id}" onclick="initQuiz(this)">Acessar Quizz</button>
+    <span onclick="reload()">Voltar pra home</span>`
+    lastId = response.data.id;
     SaveDataToLocalStorage(lastId)
 }
 
@@ -363,6 +372,7 @@ function SaveDataToLocalStorage(data)
 function initQuiz(idQuiz) {
     id = idQuiz.dataset.quiz;
     document.querySelector(".firstScreen").classList.add("hidden")
+    document.querySelector(".thirdScreen").classList.add("hidden")
     document.querySelector(".secondScreen").classList.remove("hidden")
     const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
     promise.then(takeQuiz)
@@ -385,7 +395,7 @@ function takeQuiz(resposta) {
    <div class="answers n_${[i]}"></div>
 </div>`
         for (let y = 0; y < answersArr.length; y++) {
-            document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)" data-correct="${answersArr[y].isCorrectAnswer}"><div class="notselected hidden"></div>  <img src="${answersArr[y].image}" /> ${answersArr[y].text}</div>`
+            document.querySelector(`.answers.n_${[i]}`).innerHTML += `<div class="answer" onclick="chooseAnswer(this)" data-correct="${answersArr[y].isCorrectAnswer}"><div class="notselected hidden"></div>  <img src="${answersArr[y].image}" /> <span>${answersArr[y].text}</span></div>`
         }
     }
 }

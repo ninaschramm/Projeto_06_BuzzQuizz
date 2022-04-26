@@ -115,6 +115,7 @@ ul {
     gap: 15px;
 }
 
+.thirdScreen .li_quizz,
 .li_quizz {
     width: 330px;
     height: 180px;
@@ -124,9 +125,20 @@ ul {
     background-size: 100% 100%;
     margin-bottom: 12px;
     cursor: pointer;
+    padding: 0;
 
 }
 
+.thirdScreen ul {
+    width: 100%;
+}
+
+.thirdScreen ul .li_quizz {
+    width: 100%;
+    padding-top: 56.25%;
+}
+
+.thirdScreen .li_quizz div,
 .li_quizz div {
     font-style: normal;
     font-weight: 400;
@@ -145,11 +157,15 @@ ul {
     word-break: break-all;
 }
 
+.thirdScreen .li_quizz div {
+    width: 100%;
+}
+
 .allQuizzes {
     margin-top: 70px;
 }
 
-.allQuizzes ul{
+.allQuizzes ul {
     display: flex;
     justify-content: space-between;
 }
@@ -256,6 +272,10 @@ ul {
     box-sizing: border-box;
     align-items: flex-start;
     text-align: start;
+}
+
+.thirdScreenLevels li.level.opened {
+    justify-content: space-around;
 }
 
 .thirdScreen li ion-icon {
