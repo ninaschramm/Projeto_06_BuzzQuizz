@@ -34,7 +34,17 @@ function funciona() {
 const allQuizzes = document.getElementById("listAllQuizzes");
 const yourQuizzes = document.getElementById("yourQuizzList");
 const listSerial = localStorage.getItem("myQuizzesList");
-let myQuizzesList = JSON.parse(listSerial);
+let myQuizzesList;
+
+function setMyQuizzesList() {
+if (JSON.parse(listSerial) == null) {
+    myQuizzesList = [];
+}
+else { 
+    myQuizzesList =  JSON.parse(listSerial);
+}}
+
+setMyQuizzesList()
 
 function listQuizzes(quizzes) {
     funciona()
