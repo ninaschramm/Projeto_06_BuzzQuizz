@@ -102,10 +102,7 @@ header {
 
 .createQuizBtn button {
     border: none;
-}
-
-.yourQuizzes {
-    position: absolute;
+    background-color: #fafafa;
 }
 
 
@@ -162,7 +159,7 @@ ul {
 }
 
 .allQuizzes {
-    margin-top: 70px;
+    margin-top: 40px;
 }
 
 
