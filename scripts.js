@@ -34,15 +34,24 @@ function funciona() {
 const allQuizzes = document.getElementById("listAllQuizzes");
 const yourQuizzes = document.getElementById("yourQuizzList");
 const listSerial = localStorage.getItem("myQuizzesList");
+const keysSerial = localStorage.getItem("myQuizzesKeys")
 let myQuizzesList;
+let myQuizzesKeys;
 
 function setMyQuizzesList() {
 if (JSON.parse(listSerial) == null) {
     myQuizzesList = [];
 }
 else { 
-    myQuizzesList =  JSON.parse(listSerial);
-}}
+    myQuizzesList = JSON.parse(listSerial);
+}
+if  (JSON.parse(keysSerial) == null) {
+    myQuizzesKeys = [];
+}
+else {
+    myQuizzesKeys = JSON.parse(keysSerial)
+}
+}
 
 setMyQuizzesList()
 
@@ -57,7 +66,7 @@ function listQuizzes(quizzes) {
     for (let i = 0; i < quizzes.data.length; i++) {
         if (myQuizzesList.includes(quizzes.data[i].id)) {
             yourQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
-            <div>${quizzes.data[i].title}</div> </li>`
+            <div class="deleteQuiz"></div><div>${quizzes.data[i].title}</div> </li>`
         }
         else {
             allQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
@@ -362,6 +371,8 @@ function final(response) {
     <span onclick="reload()">Voltar pra home</span>`
     lastId = response.data.id;
     SaveDataToLocalStorage(lastId)
+    SaveKeyToLocalStorage(response.data.key)
+    console.log(response)
 }
 
 function SaveDataToLocalStorage(data)
@@ -375,6 +386,18 @@ function SaveDataToLocalStorage(data)
     console.log(a);  // Should be something like [Object array]
     // Re-serialize the array back into a string and store it in localStorage
     localStorage.setItem('myQuizzesList', JSON.stringify(a));
+}
+
+function SaveKeyToLocalStorage(data) {
+let a = [];
+// Parse the serialized data back into an aray of objects
+a = JSON.parse(localStorage.getItem("myQuizzesKeys")) || [];
+// Push the new data (whether it be an object or anything else) onto the array
+a.push(data);
+// Alert the array value
+console.log(a);  // Should be something like [Object array]
+// Re-serialize the array back into a string and store it in localStorage
+localStorage.setItem('myQuizzesKeys', JSON.stringify(a));
 }
 
 

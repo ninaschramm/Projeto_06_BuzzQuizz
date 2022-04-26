@@ -110,11 +110,15 @@ header {
     position: absolute;
 }
 
+.yourQuizzes li {
+    position: relative;
+}
+
 
 ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 15px;
 }
 
 .thirdScreen .li_quizz,
@@ -167,11 +171,8 @@ ul {
     margin-top: 70px;
 }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> 02ec463a64016cdff6eff54bf2f4b47d00e07fda
 .thirdScreen {
     text-align: center;
     font-size: 24px;
@@ -536,7 +537,15 @@ ul {
     cursor: pointer;
 }
 
-
+.deleteQuiz {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 43px;
+    height: 87px;
+    background: #EC362D;
+    border-radius: 10px 0px 0px 11px;
+}
 
 
 
