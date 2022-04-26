@@ -4,8 +4,8 @@
     }
 
     .container,
-    #listAllQuizzes li,
-    #listAllQuizzes li div,
+    /* #listAllQuizzes li,
+    #listAllQuizzes li div, */
     .secondScreen .questionsQuizz,
     .secondScreen .questionsQuizz .question,
     .secondScreen .questionsQuizz .question .questionTitle,
@@ -23,16 +23,21 @@
         width: 100%;
     }
 
+    .allQuizzes ul {
+        display: flex;
+        justify-content: space-around;
+    }
+
     .quizList,
     .secondScreen .resultQuizz .result {
         width: 90%;
     }
 
-    #listAllQuizzes li {
+    /* #listAllQuizzes li {
         background-size: cover;
         background-position: center;
         padding-top: 56.25%;
-    }
+    } */
 
     .secondScreen .questionsQuizz .question {
         display: flex;
