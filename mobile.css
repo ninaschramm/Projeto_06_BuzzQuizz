@@ -1,0 +1,33 @@
+@media screen and (max-width: 1100px) {
+    header {
+        width: 100%;
+    }
+
+    .container,
+    #listAllQuizzes li,
+    #listAllQuizzes li div {
+        width: 100%;
+    }
+
+    .quizList {
+        width: 90%;
+    }
+
+    #listAllQuizzes li {
+        background-size: cover;
+        background-position: center;
+
+    }
+
+    .secondScreen .questionsQuizz {
+        width: 100%;
+    }
+
+    .secondScreen .questionsQuizz .next {
+        width: 100%;
+    }
+
+    .secondScreen .questionsQuizz .next .questionTitle {
+        width: 100%;
+    }
+}

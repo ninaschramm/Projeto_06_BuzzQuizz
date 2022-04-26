@@ -1,6 +1,7 @@
 body {
     font-family: 'Roboto';
     background-color: #fafafa;
+    width: 100%;
 }
 
 header {
@@ -46,6 +47,8 @@ header {
 }
 
 .firstQuiz {
+    display: flex;
+    justify-content: center;
     position: relative;
     width: 100%;
     max-width: 1050px;
@@ -124,10 +127,16 @@ ul {
     border-radius: 5px;
     padding-left: 10px;
     padding-top: 85px;
+    word-break: break-all;
 }
 
 .allQuizzes {
     margin-top: 70px;
+}
+
+.allQuizzes ul{
+    display: flex;
+    justify-content: space-between;
 }
 
 .thirdScreen {
@@ -275,6 +284,18 @@ ul {
 
 .thirdScreenQuestions {
     margin-top: 20px;
+}
+
+.thirdScreenSuccess {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thirdScreenSuccess span {
+    font-size: 21px;
+    font-weight: 400;
+    color: #818181;
 }
 
 .headQuizz {

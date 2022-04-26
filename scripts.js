@@ -302,8 +302,7 @@ function levelValidation() {
 function endQuiz() {
     if (levelValidation()) {
         document.querySelector(".thirdScreenLevels").classList.add("hidden")
-
-
+        document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
 
         const levelTitle = document.querySelectorAll(".level-title")
         const minRight = Array.from(document.querySelectorAll(".min-right"))

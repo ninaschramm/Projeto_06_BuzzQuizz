@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" media="screen and (max-width: 1100px)" href="mobile.css">
     <link rel="shortcut icon" href="img/buzzquizz-topo.png" />
     <title>BuzzQuizz</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,14 +58,14 @@
 
             </div>
             <div class="resultQuizz hidden">
-            
-                </div>
-                <button class="restartQuiz hidden" onclick="restartQuiz()">Reiniciar Quizz</button>
-                <div class="backHome hidden" onclick="reload()">Voltar pra home</div>
-
 
             </div>
+            <button class="restartQuiz hidden" onclick="restartQuiz()">Reiniciar Quizz</button>
+            <div class="backHome hidden" onclick="reload()">Voltar pra home</div>
+
+
         </div>
+
 
 
         <div class="content thirdScreen hidden">
@@ -94,12 +95,12 @@
             <div class="thirdScreenSuccess hidden">
                 <h2>Seu quizz está pronto!</h2>
                 <button>Acessar Quizz</button>
-                <span>Voltar pra home</span>
+                <span onclick="reload()">Voltar pra home</span>
 
             </div>
         </div>
     </div>
-
+    </div>
 
     <!-- Links Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
