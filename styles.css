@@ -89,6 +89,21 @@ header {
     cursor: pointer;
 }
 
+.createQuizBtn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.createQuizBtn ion-icon {
+    color: #EC362D;
+    font-size: 40px;
+}
+
+.createQuizBtn button {
+    border: none;
+}
+
 .yourQuizzes {
     position: absolute;
 }

@@ -25,10 +25,14 @@
         <div class="content firstScreen">
             <div class="firstQuiz">
                 <div class="quizList yourQuizzes hidden">
-                    <h1>Seus Quizzes</h1>
-                    <button class="createQuiz" onclick="createQuiz()">
+                    <div class="createQuizBtn"><h1>Seus Quizzes</h1>
+                    <button onclick="createQuiz()">
                         <ion-icon name="add-circle"></ion-icon>
-                    </button>
+                    </button></div>
+                    
+                    <ul id="yourQuizzList">
+                        
+                    </ul>
                 </div>
                 <div class="quizList noQuiz">
                     Você não criou nenhum<br>quiz ainda ):
@@ -94,7 +98,7 @@
             </div>
             <div class="thirdScreenSuccess hidden">
                 <h2>Seu quizz está pronto!</h2>
-                <button>Acessar Quizz</button>
+                <button onclick="takeMyQuiz()">Acessar Quizz</button>
                 <span onclick="reload()">Voltar pra home</span>
 
             </div>

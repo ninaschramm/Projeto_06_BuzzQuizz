@@ -10,6 +10,7 @@ let quizToPost = {
     levels: [],
 }
 let id = 0;
+let lastId;
 
 //reload the page on certain clicks
 function reload() {
@@ -24,34 +25,46 @@ function getQuizzes() {
 }
 
 function treatError() {
-    alert("Ops! Algo de errado")
+    alert("Ops! Algo deu errado")
 }
 function funciona() {
     console.log("Voltou resposta")
 }
 
-const allQuizzes = document.getElementById("listAllQuizzes")
+const allQuizzes = document.getElementById("listAllQuizzes");
+const yourQuizzes = document.getElementById("yourQuizzList");
+const listSerial = localStorage.getItem("myQuizzesList");
+let myQuizzesList = JSON.parse(listSerial);
 
 function listQuizzes(quizzes) {
     funciona()
+    
+    console.log(myQuizzesList)
+    if (myQuizzesList.length != 0)
+    {document.querySelector(".noQuiz").classList.add("hidden");
+    document.querySelector(".yourQuizzes").classList.remove("hidden")}
 
     for (let i = 0; i < quizzes.data.length; i++) {
-        allQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
-     <div>${quizzes.data[i].title}</div> 
- </li>`
+        if (myQuizzesList.includes(quizzes.data[i].id)) {
+            yourQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
+            <div>${quizzes.data[i].title}</div> </li>`
+        }
+        else {
+            allQuizzes.innerHTML += `<li class="li_quizz" style="background-image: url('${quizzes.data[i].image}')" data-quiz="${quizzes.data[i].id}" onclick="initQuiz(this)">
+            <div>${quizzes.data[i].title}</div> </li>`
+        }
     }
-
-
-    if (quizzes.data.length < 3) { adjustSize() }
 }
+
 
 getQuizzes()
 
-function adjustSize() {
-    {
-        document.querySelector(".li_quizz").classList.add("adjustMargin");
-        allQuizzes.classList.add("adjustSpace");
-    }
+function takeMyQuiz() {
+    id = lastId;
+    const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
+    promise.then(takeQuiz)
+    document.querySelector(".content.firstScreen").classList.remove("hidden")
+    document.querySelector(".content.thirdScreen").classList.add("hidden")
 }
 
 
@@ -317,12 +330,32 @@ function endQuiz() {
             })
         }
         console.log(quizToPost)
-        axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
+        const promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
+        promise.then(successfulQuiz)
     }
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
 
+}
+
+
+function successfulQuiz(resposta) {
+    lastId = resposta.data.id;
+    SaveDataToLocalStorage(lastId)
+}
+
+function SaveDataToLocalStorage(data)
+{
+    let a = [];
+    // Parse the serialized data back into an aray of objects
+    a = JSON.parse(localStorage.getItem("myQuizzesList")) || [];
+    // Push the new data (whether it be an object or anything else) onto the array
+    a.push(data);
+    // Alert the array value
+    console.log(a);  // Should be something like [Object array]
+    // Re-serialize the array back into a string and store it in localStorage
+    localStorage.setItem('myQuizzesList', JSON.stringify(a));
 }
 
 
