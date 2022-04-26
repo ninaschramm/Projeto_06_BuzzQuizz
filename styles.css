@@ -565,7 +565,7 @@ ul {
     z-index: 1;
 }
 
-.thirdScreenSuccess li {
+.thirdScreenSuccess ul {
     max-width: 500px;
     height: auto;
 }
