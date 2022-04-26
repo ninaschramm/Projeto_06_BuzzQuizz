@@ -11,7 +11,15 @@
     .secondScreen .questionsQuizz .question .questionTitle,
     .secondScreen .questionsQuizz .question .answers,
     .secondScreen .resultQuizz,
-    .secondScreen .resultQuizz .resultTitle {
+    .secondScreen .resultQuizz .resultTitle,
+    .notselected,
+    .thirdScreen div.thirdScreenStart,
+    .thirdScreen div.thirdScreenStart div,
+    .thirdScreen div.thirdScreenQuestions,
+    .thirdScreen div.thirdScreenQuestions ul,
+    .thirdScreen div.thirdScreenLevels,
+    .thirdScreen div.thirdScreenLevels ul {
+
         width: 100%;
     }
 
@@ -47,11 +55,6 @@
         width: 96%;
     }
 
-    .notselected {
-        width: 100%;
-
-    }
-
     .secondScreen .resultQuizz .result span {
         padding-left: 5%;
         box-sizing: border-box;
@@ -68,15 +71,6 @@
     .secondScreen .questionTitle,
     .secondScreen .resultQuizz .resultTitle {
         word-break: break-all;
-    }
-
-    .thirdScreen div.thirdScreenStart,
-    .thirdScreen div.thirdScreenStart div,
-    .thirdScreen div.thirdScreenQuestions,
-    .thirdScreen div.thirdScreenQuestions ul,
-    .thirdScreen div.thirdScreenLevels,
-    .thirdScreen div.thirdScreenLevels ul {
-        width: 100%;
     }
 
 

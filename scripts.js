@@ -315,9 +315,9 @@ function endQuiz() {
             })
         }
         console.log(quizToPost)
-      let promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
-      promise.then(final)
-      promise.catch(function(){alert("Erro ao criar seu quiz.")})
+        let promise = axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
+        promise.then(final)
+        promise.catch(function () { alert("Erro ao criar seu quiz.") })
     }
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
@@ -325,16 +325,28 @@ function endQuiz() {
 
 }
 
-function final(){
+function final(response) {
     document.querySelector(".thirdScreenLevels").classList.add("hidden")
     document.querySelector(".thirdScreenSuccess").classList.remove("hidden")
+    let selectedItem = {}
+    selectedItem.id = response.data.id
+    const insert = document.querySelector(".thirdScreenSuccess")
+    insert.innerHTML = `<h2>Seu quizz está pronto!</h2>
+    <ul><li class="li_quizz" style="background-image: url('${response.data.image}')" data-quiz="${response.data.id}" onclick="initQuiz(this)">
+    <div>${response.data.title}</div> 
+    </li></ul>
+    <button data-quiz="${response.data.id}" onclick="initQuiz(this)">Acessar Quizz</button>
+    <span onclick="reload()">Voltar pra home</span>`
 }
+
+
 
 
 //exec 1
 function initQuiz(idQuiz) {
     id = idQuiz.dataset.quiz;
     document.querySelector(".firstScreen").classList.add("hidden")
+    document.querySelector(".thirdScreen").classList.add("hidden")
     document.querySelector(".secondScreen").classList.remove("hidden")
     const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
     promise.then(takeQuiz)
