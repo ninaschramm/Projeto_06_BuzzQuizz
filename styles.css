@@ -102,7 +102,7 @@ ul {
 
 .thirdScreen .li_quizz,
 .li_quizz {
-    width: 330px;
+    width: 340px;
     height: 180px;
     display: flex;
     align-items: flex-end;
@@ -132,7 +132,7 @@ ul {
     align-items: center;
     color: #FFFFFF;
     height: 150px;
-    width: 330px;
+    width: 340px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.1%, #000000 100%);
     display: flex;
     align-items: center;
@@ -150,10 +150,7 @@ ul {
     margin-top: 70px;
 }
 
-.allQuizzes ul {
-    display: flex;
-    justify-content: space-between;
-}
+
 
 .thirdScreen {
     text-align: center;
