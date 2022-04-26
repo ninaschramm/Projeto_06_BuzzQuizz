@@ -557,6 +557,9 @@ function deleteQuiz(elt) {
       }
       
       if (confirm("Está certo disso?") == true) {
-        axios.delete(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${elt.dataset.id}`, {headers})
-      }
+      const promise = axios.delete(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${elt.dataset.id}`, {headers})
+      promise.then(reload)
+    }
+
+      
 }
