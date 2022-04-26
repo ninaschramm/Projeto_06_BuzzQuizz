@@ -103,6 +103,7 @@ header {
 .createQuizBtn button {
     border: none;
     background-color: #fafafa;
+    cursor: pointer;
 }
 
 
