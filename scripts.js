@@ -3,15 +3,15 @@ let level;
 let questionQtt;
 let imgURL;
 let number;
-let question;
-let questionColor;
-let answer;
+let quizToPost = {
+    title: "",
+    image: "",
+    questions: [],
+    levels: [],
+}
 let id = 0;
 
-let questions = [];
-let answers = [];
-
-//reload the page in certain clicks
+//reload the page on certain clicks
 function reload() {
     window.location.reload()
 }
@@ -79,6 +79,11 @@ function createQuestions() {
     if (validationQuestions()) {
         document.querySelector(".thirdScreenStart").classList.add("hidden")
         document.querySelector(".thirdScreenQuestions").classList.remove("hidden")
+        const quizTitle = document.getElementById("quizTitle");
+        const quizURL = document.getElementById("quizURL");
+        quizToPost.title = quizTitle.value;
+        quizToPost.image = quizURL.value;
+        console.log(quizToPost);
 
     }
     else {
@@ -90,34 +95,33 @@ function createQuestions() {
     for (let i = 0; i < questionQtt; i++) {
         ulQuestions.innerHTML +=
             `<li class="questioning closed">
-             <span>Pergunta ${i + 1}</span>
-             <ion-icon onclick="openQuestion(this)" name="create-outline"></ion-icon>
-
-             <div class="hidden">
-        <div>
-            <input class="question" placeholder="Texto da pergunta" type="text">
-            <input class="question-color" placeholder="Cor de fundo da pergunta" type="text">
-        </div>
-        <div>
-            <span>Resposta correta</span>
-            <input class="answer" placeholder="Resposta correta" type="text">
-            <input class="imgURL correct-answer${i}" placeholder="URL da imagem" type="text">
-        </div>
-        <div>
-        <span>Respostas incorretas</span>   
-            <input class="incorrect-answer${i} answer" placeholder="Resposta incorreta 1" type="text">
-            <input class="imgURL imgURLIncorrect" placeholder="URL da imagem 1" type="text">
-        </div>
-        <div>
-            <input class="incorrect-answer${i}" placeholder="Resposta incorreta 2" type="text">
-            <input class="imgURLIncorrect" placeholder="URL da imagem 2" type="text">
-        </div>
-        <div>
-            <input class="incorrect-answer${i}" placeholder="Resposta incorreta 3" type="text">
-            <input class="imgURLIncorrect" placeholder="URL da imagem 3" type="text">
-        </div>
-        </div>
-        </li>`
+        <span>Pergunta ${i + 1}</span>
+        <ion-icon onclick="openQuestion(this)" name="create-outline"></ion-icon>
+        <div class="hidden">
+   <div>
+       <input class="question" placeholder="Texto da pergunta" type="text">
+       <input class="question-color" placeholder="Cor de fundo da pergunta" type="text">
+   </div>
+   <div>
+       <p>Resposta correta</p>
+       <input class="answer answer${i} mandatory" data-correct="true" placeholder="Resposta correta" type="text">
+       <input class="imgURL imgURL${i} mandatory" placeholder="URL da imagem" type="text">
+   </div>
+   <div>
+   <span>Respostas incorretas</span>   
+       <input class="answer answer${i} mandatory" data-correct="false" placeholder="Resposta incorreta 1" type="text">
+       <input class="imgURL imgURL${i} mandatory" placeholder="URL da imagem 1" type="text">
+   </div>
+   <div>
+       <input class="answer answer${i}" data-correct="false" placeholder="Resposta incorreta 2" type="text">
+       <input class="imgURL imgURL${i}" placeholder="URL da imagem 2" type="text">
+   </div>
+   <div>
+       <input class="answer answer${i}" data-correct="false" placeholder="Resposta incorreta 3" type="text">
+       <input class="imgURL imgURL${i}" placeholder="URL da imagem 3" type="text">
+   </div>
+   </div>
+   </li>`
     }
 }
 
@@ -137,10 +141,10 @@ function openQuestion(elem) {
 
 // see if the question is valid, if the briefing is followed
 function questionsValidation() {
-    question = document.querySelectorAll(".question")
-    questionColor = document.querySelectorAll(".question-color")
-    answer = document.querySelectorAll(".answer")
-    imgURL = document.querySelectorAll(".imgURL")
+    const question = document.querySelectorAll(".questioning .question")
+    const questionColor = document.querySelectorAll(".question-color")
+    const answer = document.querySelectorAll(".answer.mandatory")
+    const imgURL_list = document.querySelectorAll(".imgURL.mandatory")
     const re = /[0-9A-Fa-f]{6}/g;
 
 
@@ -151,6 +155,8 @@ function questionsValidation() {
         }
     }
 
+
+    //FILTRAR AQUI POR ANSWER DENTRO DE QUESTION DEPOIS
     for (let i = 0; i < answer.length; i++) {
         if (answer[i].value === "") {
             console.log("b")
@@ -159,10 +165,8 @@ function questionsValidation() {
     }
 
     for (let i = 0; i < questionQtt * 2; i++) {
-        if (!(imgURL[i].value.startsWith('https'))) {
+        if (!(imgURL_list[i].value.startsWith('https'))) {
             console.log("d")
-            console.log(imgURL[i].value)
-            console.log(i)
             return false
         }
     }
@@ -182,11 +186,38 @@ function questionsValidation() {
     return true;
 }
 
+
+// to get if some element is equal to 0, used at "some" on the validation code
+function checkZero(elem) {
+    return elem === 0
+}
+
 // creating each level with its specifications
 function createLevels() {
     if (questionsValidation()) {
-        document.querySelector(".thirdScreenQuestions").classList.add("hidden")
-        document.querySelector(".thirdScreenLevels").classList.remove("hidden")
+        document.querySelector(".thirdScreenQuestions").classList.add("hidden");
+        document.querySelector(".thirdScreenLevels").classList.remove("hidden");
+        const question = document.querySelectorAll(".questioning .question");
+        const questionColor = document.querySelectorAll(".question-color");
+        for (let i = 0; i < question.length; i++) {
+            let answer = document.querySelectorAll(`.answer${i}`);
+            console.log(answer)
+            let imgURL_list = document.querySelectorAll(`.imgURL${i}`);
+            quizToPost.questions.push({
+                title: question[i].value,
+                color: "#" + questionColor[i].value,
+                answers: [],
+            })
+            for (let j = 0; j < answer.length; j++) {
+                if (answer[j].value != "") {
+                    quizToPost.questions[i].answers.push({
+                        text: answer[j].value,
+                        image: imgURL_list[j].value,
+                        isCorrectAnswer: answer[j].dataset.correct
+                    })
+                }
+            }
+        }
     }
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
@@ -199,16 +230,15 @@ function createLevels() {
             `<li class="level closed">
         <span>Nível ${i + 1}</span>
         <ion-icon onclick="openLevel(this)" name="create-outline"></ion-icon>
-
-        <div class="hidden">
+            <div class="hidden">
             <input class="level-title" placeholder="Título do nível" type="text">
             <input class="min-right" placeholder="% de acerto mínima" type="number">
-            <input class="imgURL" placeholder="URL da imagem do nível" type="text">
-            <input class="level-description" placeholder="Descrição do nível" type="text">
-        </div>
-
-    </li>`
+                <input class="imgURL level" placeholder="URL da imagem do nível" type="text">
+                <input class="level-description" placeholder="Descrição do nível" type="text">
+            </div>
+            </li>`
     }
+    console.log(quizToPost);
 }
 
 //click on the "edit" ion-icon, to get the card to be bigger 
@@ -225,15 +255,13 @@ function openLevel(elem) {
     elem.parentElement.classList.add("opened")
 }
 
-
-
 // see if the level is valid, if the briefing is followed
 function levelValidation() {
     const levelTitle = document.querySelectorAll(".level-title")
     const minRight = Array.from(document.querySelectorAll(".min-right"))
     const levelDescription = document.querySelectorAll(".level-description")
-    imgURL = document.querySelectorAll(".imgURL")
     let minRightNum = []
+    const imgURL_list = document.querySelectorAll(".imgURL.mandatory")
 
 
     for (let i = 0; i < levelTitle.length; i++) {
@@ -261,8 +289,8 @@ function levelValidation() {
             return false;
         }
     }
-    for (let i = 0; i < (imgURL.length - 1); i++) {
-        if (!(imgURL[i].value.startsWith('https'))) {
+    for (let i = 0; i < imgURL_list.length; i++) {
+        if (!(imgURL_list[i].value.startsWith('https'))) {
             console.log("d")
             return false
         }
@@ -270,79 +298,31 @@ function levelValidation() {
     console.log("e")
     return true;
 }
-// to get if some element is equal to 0, used at "some" on the validation code
-function checkZero(elem) {
-    return elem === 0
-}
 
 function endQuiz() {
     if (levelValidation()) {
         document.querySelector(".thirdScreenLevels").classList.add("hidden")
+
+
+
+        const levelTitle = document.querySelectorAll(".level-title")
+        const minRight = Array.from(document.querySelectorAll(".min-right"))
+        const levelDescription = document.querySelectorAll(".level-description")
+        const imgURL_list = document.querySelectorAll(".imgURL.level")
+        for (let i = 0; i < levelTitle.length; i++) {
+            quizToPost.levels.push({
+                title: levelTitle[i].value,
+                image: imgURL_list[i].value,
+                text: levelDescription[i].value,
+                minValue: minRight[i].value
+            })
+        }
+        console.log(quizToPost)
+        axios.post("https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes", quizToPost)
     }
     else {
         alert("Algum dos dados está fora dos requisitos para criação de quiz")
     }
-    // const empty = (elem) => (elem !== "");
-    // let arrNotEmpty = [];
-    // let newNotEmpty = [];
-    // let finalArray = [];
-
-
-   
-
-    // for (let i = 0; i < questionQtt; i++) {
-    //     questions.push([
-    //         {
-    //             title: question[i].value,
-    //             color: questionColor[i].value,
-    //             answers: [
-    //                 answers[i]
-    //             ]
-    //         }
-    //     ])
-    // }
-
-
-
-    // let obj = {
-    //     title: `${title}`,
-    //     image: imgURL[0].value,
-    //     questions: questions
-    // }
-
-    // console.log(obj)
-    // console.log(imgURL[0].value)
-    // console.log(title)
-
-
-    // for (let i = 0; i < questionQtt; i++) {
-
-    //     const notEmpty = document.querySelectorAll(`.incorrect-answer${i}`);
-    //     const correctURL = document.querySelectorAll(`.correct-answer${i}`);
-    //     // console.log(notEmpty.length)
-
-    //     for (let j = 0; j < notEmpty.length; j++) {
-    //         newNotEmpty.push(notEmpty[j].value);
-    //         arrNotEmpty = newNotEmpty.filter(empty)
-
-    //         console.log(j)
-    //     }
-
-    //     console.log(arrNotEmpty)
-    //     console.log(i)
-    //     console.log(arrNotEmpty)
-    //     finalArray.push(arrNotEmpty)
-    //     console.log(finalArray)
-    //     for (let c = 0; c < correctURL.length; c++){
-    //         answers[0].image = correctURL[c].value
-    //     }
-        
-    //     for (let k = 1; k < finalArray.length; i++){
-    //         answers[k].image = finalArray
-    //     }
-    //     newNotEmpty = [];
-    // }
-
 
 }
 
@@ -387,7 +367,7 @@ let pontos = 0;
 let answersSelected = 0;
 
 function chooseAnswer(selectedAnswer) {
-    answersSelected ++;
+    answersSelected++;
     if (selectedAnswer.dataset.correct == "true") {
         pontos++;
     }
@@ -398,13 +378,13 @@ function chooseAnswer(selectedAnswer) {
     parentQuestion.classList.remove("next")
 
     let answerList = answerDiv.querySelectorAll(`div.answer`)
-    for (let i=0; i<answerList.length; i++) {        
-      answerList[i].querySelector(".notselected").classList.remove("hidden");
-      answerList[i].onclick="null";
-      if (answerList[i].dataset.correct == "true") {
-          answerList[i].classList.add("correctAnswer")
-      }
-      else {answerList[i].classList.add("wrongAnswer")}
+    for (let i = 0; i < answerList.length; i++) {
+        answerList[i].querySelector(".notselected").classList.remove("hidden");
+        answerList[i].onclick = "null";
+        if (answerList[i].dataset.correct == "true") {
+            answerList[i].classList.add("correctAnswer")
+        }
+        else { answerList[i].classList.add("wrongAnswer") }
     }
     selectedAnswer.querySelector(".notselected").classList.add("hidden")
 
@@ -418,7 +398,7 @@ function scrollNext() {
     nextAnswerDiv.scrollIntoView({ behavior: "smooth" })
 }
 
-testOver = false;
+let testOver = false;
 const resultDiv = document.querySelector(".resultQuizz");
 
 function isTestOver() {
@@ -433,11 +413,11 @@ function isTestOver() {
         const promise = axios.get(`https://mock-api.driven.com.br/api/v6/buzzquizz/quizzes/${id}`)
         promise.then(showResult)
     }
-    
+
 }
 
 function scrollResult() {
-    resultDiv.scrollIntoView({behavior: "smooth"})
+    resultDiv.scrollIntoView({ behavior: "smooth" })
 }
 
 let score = 0;
@@ -448,27 +428,27 @@ function showResult(resposta) {
     const resultDiv = document.querySelector(".resultQuizz");
     score = pontos / resposta.data.questions.length * 100;
     score = Math.round(score)
-    
-    for (let i=0; i<resposta.data.levels.length; i++) {
+
+    for (let i = 0; i < resposta.data.levels.length; i++) {
         numb = Number(resposta.data.levels[i].minValue)
         sortable.push([i, numb])
     }
 
-    for (let i=0; i<sortable.length-1; i++) {
-        if (sortable[i][1] > sortable[i+1][1]) {
+    for (let i = 0; i < sortable.length - 1; i++) {
+        if (sortable[i][1] > sortable[i + 1][1]) {
             temp = sortable[i];
-            sortable[i] = sortable[i+1];
-            sortable[i+1] = temp;
+            sortable[i] = sortable[i + 1];
+            sortable[i + 1] = temp;
         }
     }
     console.log(sortable)
 
-    for (let k=0; k<sortable.length; k++) {
+    for (let k = 0; k < sortable.length; k++) {
         if (score >= sortable[k][1]) {
             x = sortable[k][0];
         }
     }
-    
+
     console.log(score, x)
     resultDiv.innerHTML = `<div class="resultTitle">${score}% de acerto: ${resposta.data.levels[x].title}</div>
     <div class="result">
@@ -478,7 +458,7 @@ function showResult(resposta) {
 
 }
 
-function restartQuiz() {    
+function restartQuiz() {
     pontos = 0;
     answersSelected = 0;
     testOver = false;

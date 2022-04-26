@@ -73,8 +73,8 @@
                 <div>
                     <input class="title" type="text" placeholder="Título do seu quiz" id="quizTitle">
                     <input class="imgURL" type="text" placeholder="URL da imagem do seu quizz" id="quizURL">
-                    <input class="questionQtt" type="text" placeholder="Quantidade de perguntas do quizz">
-                    <input class="level" type="text" placeholder="Quantidade de níveis do quizz">
+                    <input class="questionQtt" type="number" placeholder="Quantidade de perguntas do quizz">
+                    <input class="level" type="number" placeholder="Quantidade de níveis do quizz">
                 </div>
                 <button onclick="createQuestions()">Prosseguir pra criar perguntas</button>
             </div>
@@ -89,6 +89,12 @@
                 <h2>Agora, decida os níveis</h2>
                 <ul></ul>
                 <button onclick="endQuiz()">Finalizar Quizz</button>
+
+            </div>
+            <div class="thirdScreenSuccess hidden">
+                <h2>Seu quizz está pronto!</h2>
+                <button>Acessar Quizz</button>
+                <span>Voltar pra home</span>
 
             </div>
         </div>
